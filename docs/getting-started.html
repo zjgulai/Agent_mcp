@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-zinc-950 text-zinc-100 antialiased">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Getting Started · Agent_mcp</title>
+  <meta name="description" content="Install MCP servers to all 4 AI CLIs (opencode/codex/cursor/kimi) in ~5 minutes.">
+  <link rel="alternate" hreflang="en" href="https://zjgulai.github.io/Agent_mcp/getting-started.html">
+  <link rel="alternate" hreflang="x-default" href="https://zjgulai.github.io/Agent_mcp/getting-started.html">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css">
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif; }
+    .cmd-block { background: #0a0a0a; border: 1px solid #27272a; }
+    pre code.hljs { background: transparent !important; padding: 0 !important; }
+    .prose-custom h2 { font-size: 1.5rem; font-weight: 700; color: #fafafa; margin-top: 3rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #27272a; }
+    .prose-custom h3 { font-size: 1.25rem; font-weight: 600; color: #e4e4e7; margin-top: 2rem; margin-bottom: 0.75rem; }
+    .prose-custom p { color: #a1a1aa; line-height: 1.7; margin-bottom: 1rem; max-width: 70ch; }
+    .prose-custom code { color: #818cf8; background: #18181b; padding: 2px 6px; border-radius: 4px; font-size: 0.875em; font-family: ui-monospace,SFMono-Regular,Menlo,monospace; }
+    .prose-custom pre code { color: #e4e4e7; background: transparent; padding: 0; white-space: pre; }
+    .prose-custom ul { color: #a1a1aa; margin-bottom: 1rem; padding-left: 1.5rem; list-style: disc; max-width: 70ch; }
+    .prose-custom ul li { margin: 0.35rem 0; }
+    .prose-custom ol { color: #a1a1aa; margin-bottom: 1rem; padding-left: 1.5rem; list-style: decimal; max-width: 70ch; }
+    .prose-custom ol li { margin: 0.35rem 0; }
+    .prose-custom a { color: #818cf8; text-decoration: underline; text-underline-offset: 2px; }
+    .prose-custom a:hover { color: #a5b4fc; }
+    .prose-custom table { font-size: 0.875rem; color: #a1a1aa; margin: 1.5rem 0; border-collapse: collapse; width: 100%; }
+    .prose-custom th { text-align: left; color: #fafafa; font-weight: 600; border-bottom: 1px solid #3f3f46; padding: 0.75rem; background: #18181b; }
+    .prose-custom td { border-bottom: 1px solid #1f1f23; padding: 0.75rem; vertical-align: top; }
+    .step { padding-left: 1.5rem; border-left: 2px solid rgba(99,102,241,0.4); margin-bottom: 2rem; }
+  </style>
+</head>
+<body>
+
+<nav class="fixed top-0 inset-x-0 z-50 bg-zinc-950/80 backdrop-blur border-b border-zinc-800">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="./index.html" class="flex items-center gap-2 group">
+      <span class="text-xl">🔌</span>
+      <span class="font-semibold tracking-tight text-zinc-200 group-hover:text-indigo-400 transition-colors">Agent_mcp</span>
+    </a>
+    <div class="hidden md:flex items-center gap-6">
+      <a href="./getting-started.html" class="text-indigo-400 text-sm font-medium">Getting Started</a>
+      <a href="./handbook.html" class="text-zinc-400 hover:text-indigo-400 text-sm transition-colors">Handbook</a>
+      <a href="./architecture.html" class="text-zinc-400 hover:text-indigo-400 text-sm transition-colors">Architecture</a>
+      <a href="https://github.com/zjgulai/Agent_mcp" target="_blank" rel="noopener" class="px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 rounded-md text-sm text-zinc-200 transition-colors">GitHub →</a>
+      <button id="lang-toggle" onclick="window.i18nToggle()" class="px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 rounded-md text-sm text-zinc-300 transition-colors border border-zinc-700" aria-label="Toggle language">中文</button>
+    </div>
+  </div>
+</nav>
+
+<main class="pt-16 max-w-4xl mx-auto px-6 py-12 prose-custom">
+
+  <p class="text-indigo-400 text-sm font-medium tracking-wider">DOCUMENTATION</p>
+  <h1 class="text-4xl md:text-5xl font-bold text-zinc-100 mb-4">Getting Started</h1>
+  <p class="text-xl text-zinc-400 mb-12">From a fresh machine to MCPs in 4 AI CLIs — about 5 minutes.</p>
+
+  <h2>Prerequisites</h2>
+  <ul>
+    <li>Python 3.9+</li>
+    <li>git</li>
+    <li>npx + node (for most MCPs from npm)</li>
+    <li>uvx (for git MCP from pypi)</li>
+    <li>One or more AI CLIs: opencode / codex / cursor / kimi</li>
+  </ul>
+
+  <div class="step">
+    <h2>1. Clone the repo</h2>
+<pre class="cmd-block rounded p-4 mt-3"><code class="language-bash">git clone https://github.com/zjgulai/Agent_mcp.git ~/project/Agent_mcp
+cd ~/project/Agent_mcp
+python3 -m pip install --user pyyaml tomli tomli_w</code></pre>
+  </div>
+
+  <div class="step">
+    <h2>2. Set required env vars</h2>
+    <p>Tokens stay in env. Add to your <code>~/.zshrc</code>:</p>
+<pre class="cmd-block rounded p-4 mt-3"><code class="language-bash">export GITHUB_TOKEN=ghp_yourtoken
+export POSTGRES_CONNECTION_STRING=postgres://user:pass@host:5432/db
+export SENTRY_AUTH_TOKEN=...
+export FIGMA_API_TOKEN=...
+export LINEAR_API_KEY=lin_api_...</code></pre>
+    <p>Then <code>source ~/.zshrc</code>. Skip env vars you don't need; <code>doctor</code> will just WARN about them.</p>
+  </div>
+
+  <div class="step">
+    <h2>3. Health check first</h2>
+<pre class="cmd-block rounded p-4 mt-3"><code class="language-bash">./bin/agent-mcp doctor
+
+== schema ==
+  ok github v0.1.0
+  ...
+== binaries ==
+  ok    github       -> npx
+  ok    git          -> uvx
+== env ==
+  WARN  github       -> GITHUB_TOKEN (set if you exported it)
+  ...
+== client config consistency ==
+  opencode: 0 managed by agent-mcp (none)</code></pre>
+  </div>
+
+  <div class="step">
+    <h2>4. Install one MCP to one client</h2>
+<pre class="cmd-block rounded p-4 mt-3"><code class="language-bash">./bin/agent-mcp install context7 --client opencode
+
+[
+  {
+    "client": "opencode",
+    "config": "/Users/you/.config/opencode/opencode.json",
+    "name": "context7",
+    "backup": "/Users/you/.config/opencode/opencode.json.bak.20260516T..."
+  }
+]</code></pre>
+  </div>
+
+  <div class="step">
+    <h2>5. Install all 6 P0 MCPs to all 4 clients</h2>
+<pre class="cmd-block rounded p-4 mt-3"><code class="language-bash">for m in github filesystem context7 playwright sequential-thinking git; do
+  ./bin/agent-mcp install "$m" --client all
+done</code></pre>
+    <p>For kimi this calls <code>kimi mcp add</code> CLI; for others it merges JSON/TOML config files. All four CLIs now see the same 6 MCPs.</p>
+  </div>
+
+  <div class="step">
+    <h2>6. Verify natively per client</h2>
+<pre class="cmd-block rounded p-4 mt-3"><code class="language-bash"># opencode: read mcp keys from JSON
+python3 -c 'import json; d=json.load(open("/Users/you/.config/opencode/opencode.json")); print(list(d["mcp"].keys()))'
+
+# codex: grep mcp_servers from TOML
+grep -E "^\[mcp_servers" ~/.codex/config.toml
+
+# cursor: read mcpServers from JSON
+python3 -c 'import json; d=json.load(open("/Users/you/.cursor/mcp.json")); print(list(d["mcpServers"].keys()))'
+
+# kimi: native command
+kimi mcp list</code></pre>
+  </div>
+
+  <div class="step">
+    <h2>7. Uninstall is just as clean</h2>
+<pre class="cmd-block rounded p-4 mt-3"><code class="language-bash">./bin/agent-mcp uninstall github --client all
+
+# Anchors are checked — never deletes entries we didn't manage.</code></pre>
+  </div>
+
+  <h2>Troubleshooting</h2>
+  <ul>
+    <li><strong class="text-zinc-200">WARN env not set</strong> — only blocks if you try to use that MCP at runtime; install still succeeds.</li>
+    <li><strong class="text-zinc-200">npx slow first call</strong> — npm fetches the package on first invocation; later calls are fast.</li>
+    <li><strong class="text-zinc-200">uvx missing</strong> — install via <code>brew install uv</code> or <code>pip install uv</code>.</li>
+    <li><strong class="text-zinc-200">kimi mcp add fails</strong> — make sure <code>kimi</code> CLI is authenticated (<code>kimi --version</code> should print).</li>
+  </ul>
+
+  <h2>Next</h2>
+  <ul>
+    <li><a href="./handbook.html">The Handbook</a> — every MCP explained, every adapter wired.</li>
+    <li><a href="./architecture.html">Architecture</a> — single-registry + 4 adapter shapes.</li>
+  </ul>
+
+</main>
+
+<script>hljs.highlightAll();</script>
+<script src="./assets/i18n.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+kind: mcp
+name: postgres
+version: 0.1.0
+description: Postgres MCP server providing read-mostly schema introspection, query execution, migration sanity-check. Use whenever the agent needs to understand a real database schema, generate SQL grounded in actual tables, or debug data issues. Strongly recommended to point at staging/dev DB with read-only role.
+domain: data
+priority: P1
+
+compatibility:
+  opencode: native
+  codex: native
+  cursor: native
+  kimi: native
+
+source:
+  type: npm
+  package: "@modelcontextprotocol/server-postgres"
+
+mcp_command:
+  - npx
+  - "-y"
+  - "@modelcontextprotocol/server-postgres"
+  - "${POSTGRES_CONNECTION_STRING}"
+
+requires:
+  binaries: [npx, node]
+  env: [POSTGRES_CONNECTION_STRING]
+
+triggers:
+  - postgres
+  - postgresql
+  - schema
+  - SQL
+  - migration
+
+links:
+  upstream: https://github.com/modelcontextprotocol/servers/tree/main/src/postgres

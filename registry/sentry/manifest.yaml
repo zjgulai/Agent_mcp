@@ -1,0 +1,35 @@
+kind: mcp
+name: sentry
+version: 0.1.0
+description: Sentry MCP shortening production-error → code-fix loop. Surfaces real exceptions, stack traces, release context, environment metadata from Sentry to the agent so it can root-cause production issues directly from logs.
+domain: ops
+priority: P1
+
+compatibility:
+  opencode: native
+  codex: native
+  cursor: native
+  kimi: native
+
+source:
+  type: npm
+  package: "@sentry/mcp-server"
+
+mcp_command:
+  - npx
+  - "-y"
+  - "@sentry/mcp-server"
+
+requires:
+  binaries: [npx, node]
+  env: [SENTRY_AUTH_TOKEN]
+
+triggers:
+  - sentry
+  - production error
+  - exception trace
+  - issue triage
+  - root cause
+
+links:
+  upstream: https://docs.sentry.io/product/mcp

@@ -1,0 +1,35 @@
+kind: mcp
+name: linear
+version: 0.1.0
+description: Linear MCP enabling the agent to read tickets, update statuses, query cycles, surface assigned work. Use whenever development work starts from a ticket (not a free-form prompt) and progress should be reflected back in the team's tracker.
+domain: ops
+priority: P1
+
+compatibility:
+  opencode: native
+  codex: native
+  cursor: native
+  kimi: native
+
+source:
+  type: npm
+  package: "@linear/mcp-server"
+
+mcp_command:
+  - npx
+  - "-y"
+  - "@linear/mcp-server"
+
+requires:
+  binaries: [npx, node]
+  env: [LINEAR_API_KEY]
+
+triggers:
+  - linear
+  - ticket
+  - issue tracker
+  - sprint
+  - cycle
+
+links:
+  upstream: https://linear.app/developers

@@ -1,0 +1,34 @@
+kind: mcp
+name: filesystem
+version: 0.1.0
+description: Filesystem MCP server giving controlled file access scoped to an allowlist of paths. Use for cross-tool file operations, batch file analysis, or any agent that needs file IO with explicit boundaries.
+domain: data
+priority: P0
+
+compatibility:
+  opencode: native
+  codex: native
+  cursor: native
+  kimi: native
+
+source:
+  type: npm
+  package: "@modelcontextprotocol/server-filesystem"
+
+mcp_command:
+  - npx
+  - "-y"
+  - "@modelcontextprotocol/server-filesystem"
+  - "${HOME}/project"
+
+requires:
+  binaries: [npx, node]
+
+triggers:
+  - read file
+  - write file
+  - list directory
+  - file search
+
+links:
+  upstream: https://github.com/modelcontextprotocol/servers/tree/main/src/filesystem

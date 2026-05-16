@@ -1,0 +1,34 @@
+kind: mcp
+name: sequential-thinking
+version: 0.1.0
+description: Sequential Thinking MCP giving the agent structured multi-step reasoning scaffolding for complex refactors, phased migrations, architecture design, and incident debugging. Use whenever a task spans several modules or has many interdependent decisions.
+domain: meta
+priority: P0
+
+compatibility:
+  opencode: native
+  codex: native
+  cursor: native
+  kimi: native
+
+source:
+  type: npm
+  package: "@modelcontextprotocol/server-sequential-thinking"
+
+mcp_command:
+  - npx
+  - "-y"
+  - "@modelcontextprotocol/server-sequential-thinking"
+
+requires:
+  binaries: [npx, node]
+
+triggers:
+  - sequential thinking
+  - step by step
+  - architecture design
+  - phased migration
+  - debug plan
+
+links:
+  upstream: https://github.com/modelcontextprotocol/servers/tree/main/src/sequentialthinking

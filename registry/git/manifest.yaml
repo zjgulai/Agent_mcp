@@ -1,0 +1,32 @@
+kind: mcp
+name: git
+version: 0.1.0
+description: Git MCP exposing local repo history, blame, diff, commit metadata. Use for understanding commit lineage, recent changes, blame analysis when you need local-history context that GitHub MCP cannot provide.
+domain: ops
+priority: P0
+
+compatibility:
+  opencode: native
+  codex: native
+  cursor: native
+  kimi: native
+
+source:
+  type: pypi
+  package: mcp-server-git
+
+mcp_command:
+  - uvx
+  - mcp-server-git
+
+requires:
+  binaries: [uvx]
+
+triggers:
+  - git blame
+  - git log
+  - commit history
+  - diff analysis
+
+links:
+  upstream: https://github.com/modelcontextprotocol/servers/tree/main/src/git

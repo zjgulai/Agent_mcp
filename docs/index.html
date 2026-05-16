@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-zinc-950 text-zinc-100 antialiased">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agent_mcp — one registry, four AI CLIs (opencode / codex / cursor / kimi)</title>
+  <meta name="description" content="Single source of truth for MCP servers. One manifest per server, four adapters inject the right config into each AI CLI. GitHub, Filesystem, Context7, Playwright, Sequential-thinking, Git, Postgres, Sentry, Figma, Linear.">
+  <meta property="og:title" content="Agent_mcp · context layer for AI agents">
+  <meta property="og:description" content="Connect GitHub / Playwright / Postgres / Sentry / Context7 to opencode + codex + cursor + kimi with one install command.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://zjgulai.github.io/Agent_mcp/">
+  <link rel="alternate" hreflang="en" href="https://zjgulai.github.io/Agent_mcp/index.html">
+  <link rel="alternate" hreflang="x-default" href="https://zjgulai.github.io/Agent_mcp/index.html">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css">
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif; }
+    .gradient-bg {
+      background:
+        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(99,102,241,0.15), transparent 50%),
+        radial-gradient(ellipse 60% 50% at 80% 10%, rgba(168,85,247,0.10), transparent 50%);
+    }
+    .cmd-block { background: #0a0a0a; border: 1px solid #27272a; }
+    pre code.hljs { background: transparent !important; padding: 0 !important; }
+    .nav-link { color: #a1a1aa; transition: color 150ms; font-size: 14px; font-weight: 500; }
+    .nav-link:hover { color: #818cf8; }
+    .nav-link.active { color: #818cf8; }
+  </style>
+
+  <script>
+    window.I18N_ZH = window.I18N_ZH || {};
+    window.I18N_ZH['index'] = {
+      'nav.getting-started':       '快速开始',
+      'nav.handbook':              '手册',
+      'nav.architecture':          '架构',
+      'nav.github':                'GitHub →',
+      'hero.badge':                'v0.1 · 10 MCPs · 4 clients · 39 tests green',
+      'hero.title':                '给 AI 接上<br><span class="text-indigo-400">真实工具</span>。',
+      'hero.subtitle':             'Agent_mcp 是 4 个 AI CLI（opencode / codex / cursor / kimi）共用的 MCP 注册中心。<span class="text-zinc-200">一份 manifest 装到四处</span>—— GitHub、Filesystem、Playwright、Postgres、Sentry、Context7、Sequential-thinking ⋯⋯ 一条 install 命令同时写入 opencode.json + codex config.toml + cursor mcp.json + kimi mcp add。',
+      'hero.cta-start':            '快速开始 →',
+      'hero.cta-github':           '查看 GitHub',
+      'hero.cta-arch':             '查看架构 →',
+      'demo.eyebrow':              '一条命令,四个 CLI',
+      'demo.title':                'agent-mcp install github --client all',
+      'demo.desc':                 '注册表里 <code class="text-indigo-400">registry/github/manifest.yaml</code> 是真相源。adapter 把它翻译为 opencode 的 <code class="text-indigo-400">mcp</code> 段、codex 的 <code class="text-indigo-400">[mcp_servers.github]</code>、cursor 的 <code class="text-indigo-400">mcpServers.github</code>、kimi 的 <code class="text-indigo-400">kimi mcp add</code>。每次写客户端配置前都带时间戳备份。',
+      'demo.cta':                  '查看完整手册 →',
+      'cmds.eyebrow':              '10 个 MCP',
+      'cmds.title':                'GitHub / Filesystem / Playwright / Postgres / Sentry ...',
+      'cmds.cta':                  '完整 MCP 参考 →',
+      'cmds.github-desc':          '读 issue / 写 PR / 查 CI 失败 / 搜代码 — github.com 全链路。',
+      'cmds.filesystem-desc':      '白名单目录的文件 IO — 跨工具批处理稳。',
+      'cmds.context7-desc':        '为 React/Next/Supabase/Stripe 等快变 SDK 拉最新文档。',
+      'cmds.playwright-desc':      '真打开浏览器、点按钮、填表单、截屏、读 DOM。',
+      'cmds.thinking-desc':        '给复杂重构 / 分阶段迁移 / 架构设计上结构化思考层。',
+      'cmds.git-desc':             '本地 git blame / log / diff,补 GitHub 的远端视角。',
+      'cmds.postgres-desc':        '读 schema、生成 SQL、查 migration、排查数据问题。',
+      'cmds.sentry-desc':          '把生产错误直接接回代码 — 异常 → 修复链路最短化。',
+      'cmds.figma-desc':           '读设计 token / 组件结构,不只靠截图猜。',
+      'cmds.linear-desc':          'agent 读 ticket、生成计划、回写状态 — 全链路。',
+      'arch.eyebrow':              '环境变量驱动',
+      'arch.title':                'Secret 走 env,不进任何文件。',
+      'arch.desc':                 'manifest 里 <code class="text-indigo-400">requires.env: [GITHUB_TOKEN]</code> 是真相 — adapter 把变量名(不是值)写入客户端配置,客户端运行时从 shell 环境继承。<strong class="text-zinc-200">绝不</strong>把明文 token 写进任何文件,schema 验证会直接拒。',
+      'arch.cta':                  '查看完整架构 →',
+      'who.title':                 '为不想在每个 CLI 里重复配 MCP 的人而做。',
+      'who.bullet1-h':             '你用多于一个 CLI',
+      'who.bullet1':               'opencode + cursor + kimi 都要装 GitHub MCP? 一条命令搞定。',
+      'who.bullet2-h':             '你害怕泄露 token',
+      'who.bullet2':               'Schema 自动检测 ghp_ / sk- / AIza 字面量并拒。',
+      'who.bullet3-h':             '你想知道环境少了啥',
+      'who.bullet3':               'doctor 体检:GITHUB_TOKEN 没设? POSTGRES_CONNECTION_STRING 不存在? npx 不在 PATH? 一目了然。',
+      'cta-final.title':           '装 MCP,一次写四处。',
+      'cta-final.desc':            'agent-mcp install github --client all。备份 + 锚点 + 卸载干净。',
+      'cta-final.button':          '开始安装指南 →',
+      'footer.tagline':            'Agent_mcp · MIT 风格使用,欢迎署名',
+    };
+  </script>
+</head>
+<body>
+
+<nav class="fixed top-0 inset-x-0 z-50 bg-zinc-950/80 backdrop-blur border-b border-zinc-800">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="./index.html" class="flex items-center gap-2 group">
+      <span class="text-xl">🔌</span>
+      <span class="font-semibold tracking-tight text-zinc-200 group-hover:text-indigo-400 transition-colors">Agent_mcp</span>
+    </a>
+    <div class="hidden md:flex items-center gap-6">
+      <a href="./getting-started.html" class="text-zinc-400 hover:text-indigo-400 text-sm transition-colors" data-i18n="nav.getting-started">Getting Started</a>
+      <a href="./handbook.html" class="text-zinc-400 hover:text-indigo-400 text-sm transition-colors" data-i18n="nav.handbook">Handbook</a>
+      <a href="./architecture.html" class="text-zinc-400 hover:text-indigo-400 text-sm transition-colors" data-i18n="nav.architecture">Architecture</a>
+      <a href="https://github.com/zjgulai/Agent_mcp" target="_blank" rel="noopener" class="px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 rounded-md text-sm text-zinc-200 transition-colors" data-i18n="nav.github">GitHub →</a>
+      <button id="lang-toggle" onclick="window.i18nToggle()" class="px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 rounded-md text-sm text-zinc-300 transition-colors border border-zinc-700" aria-label="Toggle language">中文</button>
+    </div>
+  </div>
+</nav>
+
+<main class="pt-16">
+
+<section class="gradient-bg">
+  <div class="max-w-6xl mx-auto px-6 py-24 md:py-32">
+    <div class="max-w-3xl">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-medium mb-6">
+        <span class="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse"></span>
+        <span data-i18n="hero.badge">v0.1 · 10 MCPs · 4 clients · 39 tests green</span>
+      </div>
+
+      <h1 class="text-5xl md:text-7xl font-bold tracking-tight text-zinc-100 mb-6" data-i18n-html="hero.title">
+        Connect your AI to<br>
+        <span class="text-indigo-400">real tools</span>.
+      </h1>
+
+      <p class="text-xl text-zinc-400 leading-relaxed mb-8" data-i18n-html="hero.subtitle">
+        Agent_mcp is the MCP server registry shared by 4 AI CLIs (opencode / codex / cursor / kimi).
+        <span class="text-zinc-200">One manifest, installed everywhere</span> — GitHub, Filesystem,
+        Playwright, Postgres, Sentry, Context7, Sequential-thinking … one
+        <code class="text-indigo-400">install</code> command writes
+        <code class="text-indigo-400">opencode.json</code> + codex <code class="text-indigo-400">config.toml</code>
+        + cursor <code class="text-indigo-400">mcp.json</code> + <code class="text-indigo-400">kimi mcp add</code>.
+      </p>
+
+      <div class="flex flex-wrap gap-3">
+        <a href="./getting-started.html" class="px-5 py-2.5 bg-indigo-500 hover:bg-indigo-400 text-white rounded-md font-medium transition-colors" data-i18n="hero.cta-start">
+          Get Started →
+        </a>
+        <a href="https://github.com/zjgulai/Agent_mcp" target="_blank" rel="noopener" class="px-5 py-2.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 rounded-md font-medium transition-colors" data-i18n="hero.cta-github">
+          View on GitHub
+        </a>
+        <a href="./architecture.html" class="px-5 py-2.5 text-zinc-400 hover:text-indigo-400 rounded-md font-medium transition-colors" data-i18n="hero.cta-arch">
+          See Architecture →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="border-t border-zinc-900">
+  <div class="max-w-6xl mx-auto px-6 py-20">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <p class="text-indigo-400 text-sm font-medium mb-2 tracking-wider" data-i18n="demo.eyebrow">ONE COMMAND · FOUR CLIENTS</p>
+        <h2 class="text-3xl font-bold mb-4 text-zinc-100 font-mono" data-i18n="demo.title">agent-mcp install github --client all</h2>
+        <p class="text-zinc-400 mb-6 leading-relaxed" data-i18n-html="demo.desc">
+          The truth source is <code class="text-indigo-400">registry/github/manifest.yaml</code>.
+          Adapters translate it into opencode's <code class="text-indigo-400">mcp</code> object,
+          codex's <code class="text-indigo-400">[mcp_servers.github]</code>,
+          cursor's <code class="text-indigo-400">mcpServers.github</code>,
+          and <code class="text-indigo-400">kimi mcp add</code>. Every write to a client config gets a
+          timestamped backup first.
+        </p>
+        <a href="./handbook.html" class="text-indigo-400 hover:text-indigo-300 font-medium" data-i18n="demo.cta">
+          Read the handbook →
+        </a>
+      </div>
+      <div class="cmd-block rounded-lg p-5 font-mono text-sm">
+<pre><code class="language-bash">$ agent-mcp install github --client all
+
+  opencode/github: writes ~/.config/opencode/opencode.json
+                   backup: opencode.json.bak.20260516T...
+  codex   /github: writes ~/.codex/config.toml
+                   [mcp_servers.github]
+  cursor  /github: writes ~/.cursor/mcp.json
+                   mcpServers.github
+  kimi    /github: kimi mcp add github -t stdio
+                   -e GITHUB_TOKEN=$GITHUB_TOKEN -- ...</code></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="border-t border-zinc-900 bg-zinc-950">
+  <div class="max-w-6xl mx-auto px-6 py-20">
+    <p class="text-indigo-400 text-sm font-medium mb-2 tracking-wider" data-i18n="cmds.eyebrow">10 MCPS</p>
+    <h2 class="text-3xl font-bold mb-12 text-zinc-100" data-i18n="cmds.title">GitHub · Filesystem · Playwright · Postgres · Sentry ...</h2>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
+      <div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-indigo-500/30 transition-colors">
+        <code class="text-indigo-400 font-mono text-sm">github</code>
+        <p class="text-zinc-400 text-sm mt-2" data-i18n="cmds.github-desc">Issues, PRs, CI failures, code search — full github.com loop.</p>
+      </div>
+      <div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-indigo-500/30 transition-colors">
+        <code class="text-indigo-400 font-mono text-sm">filesystem</code>
+        <p class="text-zinc-400 text-sm mt-2" data-i18n="cmds.filesystem-desc">Allowlist-bounded file IO — clean for cross-tool batches.</p>
+      </div>
+      <div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-indigo-500/30 transition-colors">
+        <code class="text-indigo-400 font-mono text-sm">context7</code>
+        <p class="text-zinc-400 text-sm mt-2" data-i18n="cmds.context7-desc">Up-to-date docs for fast-moving SDKs (React, Next, Supabase, Stripe...).</p>
+      </div>
+      <div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-indigo-500/30 transition-colors">
+        <code class="text-indigo-400 font-mono text-sm">playwright</code>
+        <p class="text-zinc-400 text-sm mt-2" data-i18n="cmds.playwright-desc">Real browser navigation, clicks, screenshots, DOM reads.</p>
+      </div>
+      <div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-indigo-500/30 transition-colors">
+        <code class="text-indigo-400 font-mono text-sm">sequential-thinking</code>
+        <p class="text-zinc-400 text-sm mt-2" data-i18n="cmds.thinking-desc">Structured multi-step reasoning for complex refactors & debugging.</p>
+      </div>
+      <div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-indigo-500/30 transition-colors">
+        <code class="text-indigo-400 font-mono text-sm">git</code>
+        <p class="text-zinc-400 text-sm mt-2" data-i18n="cmds.git-desc">Local git blame / log / diff — pairs with GitHub MCP.</p>
+      </div>
+      <div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-indigo-500/30 transition-colors">
+        <code class="text-indigo-400 font-mono text-sm">postgres</code>
+        <p class="text-zinc-400 text-sm mt-2" data-i18n="cmds.postgres-desc">Read schema, generate SQL, sanity-check migrations.</p>
+      </div>
+      <div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-indigo-500/30 transition-colors">
+        <code class="text-indigo-400 font-mono text-sm">sentry</code>
+        <p class="text-zinc-400 text-sm mt-2" data-i18n="cmds.sentry-desc">Production errors → code fix. Shortest exception→repair loop.</p>
+      </div>
+      <div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-indigo-500/30 transition-colors">
+        <code class="text-indigo-400 font-mono text-sm">figma</code>
+        <p class="text-zinc-400 text-sm mt-2" data-i18n="cmds.figma-desc">Read design tokens & component structure — not just screenshots.</p>
+      </div>
+      <div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-indigo-500/30 transition-colors">
+        <code class="text-indigo-400 font-mono text-sm">linear</code>
+        <p class="text-zinc-400 text-sm mt-2" data-i18n="cmds.linear-desc">Read tickets, generate plans, write back status.</p>
+      </div>
+    </div>
+
+    <div class="mt-8 text-center">
+      <a href="./handbook.html#mcps" class="text-indigo-400 hover:text-indigo-300 font-medium" data-i18n="cmds.cta">
+        Full MCP reference →
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="border-t border-zinc-900">
+  <div class="max-w-6xl mx-auto px-6 py-20">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div class="order-2 md:order-1 cmd-block rounded-lg p-5 font-mono text-sm">
+<pre><code class="language-bash">$ agent-mcp doctor
+
+== schema ==
+  ok github v0.1.0       (P0, ops)
+  ok playwright v0.1.0   (P0, frontend)
+  ...
+
+== binaries ==
+  ok    github       -> npx (/opt/homebrew/bin/npx)
+  ok    git          -> uvx (/Users/lute/.local/bin/uvx)
+  ...
+
+== env ==
+  WARN  github       -> GITHUB_TOKEN (not set)
+  WARN  postgres     -> POSTGRES_CONNECTION_STRING (not set)
+  WARN  sentry       -> SENTRY_AUTH_TOKEN (not set)
+
+== client config consistency ==
+  opencode: 6 managed by agent-mcp (...)
+  codex   : 6 managed by agent-mcp (...)
+  cursor  : 6 managed by agent-mcp (...)
+  kimi    : 6 managed by agent-mcp (...)</code></pre>
+      </div>
+      <div class="order-1 md:order-2">
+        <p class="text-indigo-400 text-sm font-medium mb-2 tracking-wider" data-i18n="arch.eyebrow">ENV-VAR DRIVEN</p>
+        <h2 class="text-3xl font-bold mb-4 text-zinc-100" data-i18n="arch.title">Secrets go through env. Never into files.</h2>
+        <p class="text-zinc-400 mb-6 leading-relaxed" data-i18n-html="arch.desc">
+          <code class="text-indigo-400">requires.env: [GITHUB_TOKEN]</code> in the manifest is the truth.
+          Adapters write the env-var <em>name</em> (not the value) into client config; the runtime
+          inherits the actual value from the shell at start.
+          <strong class="text-zinc-200">Never</strong> a plaintext token in any file — the schema
+          validator detects literal <code>ghp_*</code> / <code>sk-*</code> / <code>AIza*</code> strings
+          and rejects.
+        </p>
+        <a href="./architecture.html" class="text-indigo-400 hover:text-indigo-300 font-medium" data-i18n="arch.cta">
+          See the full architecture →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="border-t border-zinc-900 bg-zinc-950">
+  <div class="max-w-6xl mx-auto px-6 py-20">
+    <h2 class="text-3xl font-bold mb-12 text-center text-zinc-100" data-i18n="who.title">For people who hate configuring MCPs four times.</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="p-6">
+        <div class="text-3xl mb-3">🧰</div>
+        <h3 class="font-semibold text-zinc-100 mb-2" data-i18n="who.bullet1-h">You use more than one CLI</h3>
+        <p class="text-zinc-400 text-sm" data-i18n="who.bullet1">opencode + cursor + kimi all need GitHub MCP? One command does all four at once.</p>
+      </div>
+      <div class="p-6">
+        <div class="text-3xl mb-3">🔐</div>
+        <h3 class="font-semibold text-zinc-100 mb-2" data-i18n="who.bullet2-h">You fear leaking tokens</h3>
+        <p class="text-zinc-400 text-sm" data-i18n="who.bullet2">Schema auto-detects ghp_ / sk- / AIza literals and refuses. Env-name only.</p>
+      </div>
+      <div class="p-6">
+        <div class="text-3xl mb-3">🩺</div>
+        <h3 class="font-semibold text-zinc-100 mb-2" data-i18n="who.bullet3-h">You want to know what's missing</h3>
+        <p class="text-zinc-400 text-sm" data-i18n="who.bullet3"><code class="text-indigo-400">agent-mcp doctor</code> tells you: env not set, binary missing, anchor drift.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="border-t border-zinc-900 gradient-bg">
+  <div class="max-w-4xl mx-auto px-6 py-20 text-center">
+    <h2 class="text-4xl font-bold mb-4 text-zinc-100" data-i18n="cta-final.title">Install an MCP. Write to four places at once.</h2>
+    <p class="text-zinc-400 mb-8 text-lg" data-i18n="cta-final.desc">
+      <code class="text-indigo-400">agent-mcp install github --client all</code>.
+      Backup, anchor, clean uninstall — guaranteed.
+    </p>
+    <a href="./getting-started.html" class="inline-block px-6 py-3 bg-indigo-500 hover:bg-indigo-400 text-white rounded-md font-medium transition-colors" data-i18n="cta-final.button">
+      Start the install guide →
+    </a>
+  </div>
+</section>
+
+<footer class="border-t border-zinc-900 bg-zinc-950">
+  <div class="max-w-6xl mx-auto px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-zinc-500">
+    <div class="flex items-center gap-2">
+      <span>🔌</span>
+      <span data-i18n="footer.tagline">Agent_mcp · MIT-style use, attribution welcomed</span>
+    </div>
+    <div class="flex items-center gap-4">
+      <a href="https://github.com/zjgulai/Agent_mcp" target="_blank" rel="noopener" class="hover:text-indigo-400 transition-colors">GitHub</a>
+      <a href="https://github.com/zjgulai/Agent_mcp/issues" target="_blank" rel="noopener" class="hover:text-indigo-400 transition-colors">Issues</a>
+      <a href="./architecture.html" class="hover:text-indigo-400 transition-colors" data-i18n="nav.architecture">Architecture</a>
+    </div>
+  </div>
+</footer>
+
+</main>
+
+<script>hljs.highlightAll();</script>
+<script src="./assets/i18n.js" defer></script>
+</body>
+</html>

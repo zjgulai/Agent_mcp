@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-zinc-950 text-zinc-100 antialiased">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Handbook · Agent_mcp</title>
+  <meta name="description" content="Full Agent_mcp reference: 10 MCPs × 4 client adapters × manifest schema × env model.">
+  <link rel="alternate" hreflang="en" href="https://zjgulai.github.io/Agent_mcp/handbook.html">
+  <link rel="alternate" hreflang="x-default" href="https://zjgulai.github.io/Agent_mcp/handbook.html">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css">
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif; }
+    .cmd-block { background: #0a0a0a; border: 1px solid #27272a; }
+    pre code.hljs { background: transparent !important; padding: 0 !important; }
+    .prose-custom h2 { font-size: 1.5rem; font-weight: 700; color: #fafafa; margin-top: 3rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #27272a; }
+    .prose-custom h3 { font-size: 1.25rem; font-weight: 600; color: #e4e4e7; margin-top: 2rem; margin-bottom: 0.75rem; }
+    .prose-custom p { color: #a1a1aa; line-height: 1.7; margin-bottom: 1rem; max-width: 70ch; }
+    .prose-custom code { color: #818cf8; background: #18181b; padding: 2px 6px; border-radius: 4px; font-size: 0.875em; font-family: ui-monospace,SFMono-Regular,Menlo,monospace; }
+    .prose-custom pre code { color: #e4e4e7; background: transparent; padding: 0; white-space: pre; }
+    .prose-custom ul { color: #a1a1aa; margin-bottom: 1rem; padding-left: 1.5rem; list-style: disc; max-width: 70ch; }
+    .prose-custom ul li { margin: 0.35rem 0; }
+    .prose-custom table { font-size: 0.875rem; color: #a1a1aa; margin: 1.5rem 0; border-collapse: collapse; width: 100%; }
+    .prose-custom th { text-align: left; color: #fafafa; font-weight: 600; border-bottom: 1px solid #3f3f46; padding: 0.75rem; background: #18181b; }
+    .prose-custom td { border-bottom: 1px solid #1f1f23; padding: 0.75rem; vertical-align: top; }
+    .toc { background: #0a0a0a; padding: 1.5rem; border-radius: 0.5rem; border: 1px solid #27272a; margin: 2rem 0; }
+    .toc ul { list-style: none; padding: 0; margin: 0; columns: 2; }
+    .toc a { color: #818cf8; text-decoration: none; font-size: 0.9rem; }
+    .toc a:hover { text-decoration: underline; }
+    .mcp-card { background: #0a0a0a; border-left: 3px solid #818cf8; padding: 1.25rem 1.5rem; border-radius: 0 0.5rem 0.5rem 0; margin: 1.5rem 0; }
+    .mcp-card h3 { margin-top: 0; }
+    .badge-row { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 0.5rem 0 1rem; }
+    .badge { display: inline-block; font-size: 0.75rem; padding: 2px 10px; border-radius: 10px; font-weight: 500; }
+    .badge.p0 { background: rgba(239,68,68,0.15); color: #ef4444; }
+    .badge.p1 { background: rgba(245,158,11,0.15); color: #f59e0b; }
+    .badge.env { background: rgba(168,85,247,0.15); color: #c084fc; font-family: ui-monospace,SFMono-Regular,Menlo,monospace; }
+    .badge.bin { background: rgba(99,102,241,0.15); color: #818cf8; font-family: ui-monospace,SFMono-Regular,Menlo,monospace; }
+  </style>
+</head>
+<body>
+
+<nav class="fixed top-0 inset-x-0 z-50 bg-zinc-950/80 backdrop-blur border-b border-zinc-800">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="./index.html" class="flex items-center gap-2 group">
+      <span class="text-xl">🔌</span>
+      <span class="font-semibold tracking-tight text-zinc-200 group-hover:text-indigo-400 transition-colors">Agent_mcp</span>
+    </a>
+    <div class="hidden md:flex items-center gap-6">
+      <a href="./getting-started.html" class="text-zinc-400 hover:text-indigo-400 text-sm transition-colors">Getting Started</a>
+      <a href="./handbook.html" class="text-indigo-400 text-sm font-medium">Handbook</a>
+      <a href="./architecture.html" class="text-zinc-400 hover:text-indigo-400 text-sm transition-colors">Architecture</a>
+      <a href="https://github.com/zjgulai/Agent_mcp" target="_blank" rel="noopener" class="px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 rounded-md text-sm text-zinc-200 transition-colors">GitHub →</a>
+      <button id="lang-toggle" onclick="window.i18nToggle()" class="px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 rounded-md text-sm text-zinc-300 transition-colors border border-zinc-700" aria-label="Toggle language">中文</button>
+    </div>
+  </div>
+</nav>
+
+<main class="pt-16 max-w-4xl mx-auto px-6 py-12 prose-custom">
+
+  <p class="text-indigo-400 text-sm font-medium tracking-wider">DOCUMENTATION</p>
+  <h1 class="text-4xl md:text-5xl font-bold text-zinc-100 mb-4">The Handbook</h1>
+  <p class="text-xl text-zinc-400 mb-12">Every MCP. Every env var. Every command.</p>
+
+  <div class="toc">
+    <strong class="text-zinc-200">Contents</strong>
+    <ul>
+      <li><a href="#overview">§1 Overview</a></li>
+      <li><a href="#mcps">§2 The 10 MCPs</a></li>
+      <li><a href="#matrix">§3 Compatibility Matrix</a></li>
+      <li><a href="#commands">§4 CLI Commands</a></li>
+      <li><a href="#manifest">§5 Manifest Schema</a></li>
+      <li><a href="#secret">§6 Secret Model</a></li>
+    </ul>
+  </div>
+
+  <section id="overview">
+    <h2>§1 Overview</h2>
+    <p>Agent_mcp is the context layer of a three-repo system:</p>
+    <ul>
+      <li><a href="https://github.com/zjgulai/Agent_skills">Agent_skills</a> — <em>methodology</em>: how the agent thinks (16 skills)</li>
+      <li><a href="https://github.com/zjgulai/Agent_hook">Agent_hook</a> — <em>enforcement</em>: what must happen (9 hooks)</li>
+      <li><strong class="text-zinc-200">Agent_mcp</strong> — <em>context</em>: what the agent can touch (10 MCPs)</li>
+    </ul>
+  </section>
+
+  <section id="mcps">
+    <h2>§2 The 10 MCPs</h2>
+
+    <div class="mcp-card">
+      <h3>github</h3>
+      <div class="badge-row">
+        <span class="badge p0">P0</span>
+        <span class="badge env">GITHUB_TOKEN</span>
+        <span class="badge bin">npx · node</span>
+      </div>
+      <p>Issues, PRs, code search, CI failures, workflow inspection. The default "agent-touches-github" MCP. Use whenever review, hunt, write-PR, debug-CI is the goal.</p>
+      <p><code class="text-indigo-400">npx -y @modelcontextprotocol/server-github</code></p>
+    </div>
+
+    <div class="mcp-card">
+      <h3>filesystem</h3>
+      <div class="badge-row"><span class="badge p0">P0</span><span class="badge bin">npx · node</span></div>
+      <p>Controlled file IO scoped to an allowlist. Survives even when CLIs have their own file tools — bounded access is the point.</p>
+      <p><code class="text-indigo-400">npx -y @modelcontextprotocol/server-filesystem $HOME/project</code></p>
+    </div>
+
+    <div class="mcp-card">
+      <h3>context7</h3>
+      <div class="badge-row"><span class="badge p0">P0</span><span class="badge bin">npx · node</span></div>
+      <p>Pulls up-to-date library docs (React, Next.js, Supabase, Stripe, FastAPI, cloud SDKs) so the agent stops citing stale APIs. Use phrase: <code>use context7</code>.</p>
+      <p><code class="text-indigo-400">npx -y @upstash/context7-mcp@latest</code></p>
+    </div>
+
+    <div class="mcp-card">
+      <h3>playwright</h3>
+      <div class="badge-row"><span class="badge p0">P0</span><span class="badge bin">npx · node</span></div>
+      <p>Real browser: navigate, click, fill, screenshot, read DOM. Pairs with frontend-design skill — generate UI, then verify it actually renders.</p>
+      <p><code class="text-indigo-400">npx -y @playwright/mcp@latest</code></p>
+    </div>
+
+    <div class="mcp-card">
+      <h3>sequential-thinking</h3>
+      <div class="badge-row"><span class="badge p0">P0</span><span class="badge bin">npx · node</span></div>
+      <p>Structured multi-step thinking layer. Use for complex refactors, phased migrations, architecture design, incident debugging.</p>
+      <p><code class="text-indigo-400">npx -y @modelcontextprotocol/server-sequential-thinking</code></p>
+    </div>
+
+    <div class="mcp-card">
+      <h3>git</h3>
+      <div class="badge-row"><span class="badge p0">P0</span><span class="badge bin">uvx</span></div>
+      <p>Local repo history: blame, log, diff, commit metadata. Complements GitHub MCP (which is remote-only).</p>
+      <p><code class="text-indigo-400">uvx mcp-server-git</code></p>
+    </div>
+
+    <div class="mcp-card">
+      <h3>postgres</h3>
+      <div class="badge-row"><span class="badge p1">P1</span><span class="badge env">POSTGRES_CONNECTION_STRING</span><span class="badge bin">npx · node</span></div>
+      <p>Read schema, run queries, sanity-check migrations. Strongly recommended: point at staging/dev DB with read-only role.</p>
+      <p><code class="text-indigo-400">npx -y @modelcontextprotocol/server-postgres $POSTGRES_CONNECTION_STRING</code></p>
+    </div>
+
+    <div class="mcp-card">
+      <h3>sentry</h3>
+      <div class="badge-row"><span class="badge p1">P1</span><span class="badge env">SENTRY_AUTH_TOKEN</span><span class="badge bin">npx · node</span></div>
+      <p>Production exceptions → code fix in one step. Shortens the cycle that usually breaks teams.</p>
+      <p><code class="text-indigo-400">npx -y @sentry/mcp-server</code></p>
+    </div>
+
+    <div class="mcp-card">
+      <h3>figma</h3>
+      <div class="badge-row"><span class="badge p1">P1</span><span class="badge env">FIGMA_API_TOKEN</span><span class="badge bin">npx · node</span></div>
+      <p>Read design tokens, components, text content. Stops the agent from guessing layouts from blurry screenshots.</p>
+      <p><code class="text-indigo-400">npx -y @figma/mcp-server</code></p>
+    </div>
+
+    <div class="mcp-card">
+      <h3>linear</h3>
+      <div class="badge-row"><span class="badge p1">P1</span><span class="badge env">LINEAR_API_KEY</span><span class="badge bin">npx · node</span></div>
+      <p>Read tickets, write status, surface assigned work. Connects "ticket → plan → completed" in one tool.</p>
+      <p><code class="text-indigo-400">npx -y @linear/mcp-server</code></p>
+    </div>
+  </section>
+
+  <section id="matrix">
+    <h2>§3 Compatibility Matrix</h2>
+    <p>All 10 MCPs work on all 4 clients natively (MCP is a standard protocol — every modern CLI speaks it). What differs is <em>how the config gets written</em>:</p>
+    <table>
+      <thead><tr><th>Client</th><th>Config file</th><th>Anchor</th></tr></thead>
+      <tbody>
+        <tr><td>opencode</td><td><code>~/.config/opencode/opencode.json</code> → <code>mcp.&lt;name&gt;</code></td><td><code>_managed_by</code> JSON field</td></tr>
+        <tr><td>codex</td><td><code>~/.codex/config.toml</code> → <code>[mcp_servers.&lt;name&gt;]</code></td><td><code>~/.codex/.agent-mcp-managed.json</code></td></tr>
+        <tr><td>cursor</td><td><code>~/.cursor/mcp.json</code> → <code>mcpServers.&lt;name&gt;</code></td><td><code>_managed_by</code> JSON field</td></tr>
+        <tr><td>kimi</td><td>via <code>kimi mcp add</code> CLI</td><td><code>~/.kimi/.agent-mcp-managed.json</code></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="commands">
+    <h2>§4 CLI Commands</h2>
+    <table>
+      <thead><tr><th>Command</th><th>Does</th></tr></thead>
+      <tbody>
+        <tr><td><code>agent-mcp list</code></td><td>Tabular view of all 10 MCPs × 4 client install states.</td></tr>
+        <tr><td><code>agent-mcp install &lt;name&gt; --client all|opencode|codex|cursor|kimi</code></td><td>Backup, write config, anchor.</td></tr>
+        <tr><td><code>agent-mcp uninstall &lt;name&gt; --client all|...</code></td><td>Remove by anchor. Refuse non-managed entries.</td></tr>
+        <tr><td><code>agent-mcp doctor</code></td><td>Schema validation, binary check, env satisfaction, anchor consistency.</td></tr>
+        <tr><td><code>agent-mcp show &lt;name&gt;</code></td><td>Print manifest as JSON.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="manifest">
+    <h2>§5 Manifest Schema</h2>
+<pre class="cmd-block rounded p-4 mt-3"><code class="language-yaml">kind: mcp                         # required
+name: github                      # required: kebab-case
+version: 0.1.0                    # required: semver
+description: |                    # required: >= 20 chars
+  GitHub MCP server providing repo, issue, PR, code search, CI access.
+  Use whenever working with github.com — reviewing PRs, hunting issues...
+domain: ops                       # required
+priority: P0                      # required: P0|P1|P2
+
+compatibility:                    # required: all 4 clients
+  opencode: native
+  codex: native
+  cursor: native
+  kimi: native
+
+source:
+  type: npm                       # local | external | git | npm | pypi
+  package: "@modelcontextprotocol/server-github"
+
+mcp_command:                      # required when kind=mcp
+  - npx
+  - "-y"
+  - "@modelcontextprotocol/server-github"
+
+requires:
+  binaries: [npx, node]
+  env: [GITHUB_TOKEN]             # secret env names, never values
+
+triggers: [github, pull request, issue, CI failure]</code></pre>
+  </section>
+
+  <section id="secret">
+    <h2>§6 Secret Model</h2>
+    <p>Tokens never live in any file managed by agent-mcp. The flow is:</p>
+    <ol>
+      <li>You export the token in your shell: <code>export GITHUB_TOKEN=ghp_...</code>.</li>
+      <li>manifest declares the env name: <code>requires.env: [GITHUB_TOKEN]</code>.</li>
+      <li>Adapter writes <code>${GITHUB_TOKEN}</code> (a literal interpolation, not the value) into client config.</li>
+      <li>At runtime, the client passes the env to the MCP child process, which sees the actual token.</li>
+    </ol>
+    <p>Schema rejects literal token patterns at load time:</p>
+<pre class="cmd-block rounded p-4 mt-3"><code class="language-python"># From agent/lib/manifest.py
+TOKEN_LITERAL_RE = re.compile(
+    r"(ghp_|gho_|sk-[a-zA-Z0-9]{10,}|AIza[0-9A-Za-z\-_]{20,})"
+)
+# Any manifest containing this pattern is refused.</code></pre>
+  </section>
+
+</main>
+
+<script>hljs.highlightAll();</script>
+<script src="./assets/i18n.js" defer></script>
+</body>
+</html>

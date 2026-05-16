@@ -1,0 +1,34 @@
+kind: mcp
+name: context7
+version: 0.1.0
+description: Context7 MCP fetching up-to-date docs for fast-moving libraries (React, Next.js, Supabase, Prisma, FastAPI, Stripe, cloud SDKs). Use whenever you suspect the model's library knowledge is stale or you need version-pinned API references.
+domain: research
+priority: P0
+
+compatibility:
+  opencode: native
+  codex: native
+  cursor: native
+  kimi: native
+
+source:
+  type: npm
+  package: "@upstash/context7-mcp"
+
+mcp_command:
+  - npx
+  - "-y"
+  - "@upstash/context7-mcp@latest"
+
+requires:
+  binaries: [npx, node]
+
+triggers:
+  - use context7
+  - library docs
+  - api reference
+  - sdk docs
+
+links:
+  upstream: https://github.com/upstash/context7
+  docs: https://upstash.com/blog/context7-mcp

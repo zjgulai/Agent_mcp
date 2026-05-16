@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-zinc-950 text-zinc-100 antialiased">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Architecture · Agent_mcp</title>
+  <meta name="description" content="Single registry, four AI CLI adapters: how Agent_mcp ships MCP servers from one manifest to opencode/codex/cursor/kimi.">
+  <link rel="alternate" hreflang="en" href="https://zjgulai.github.io/Agent_mcp/architecture.html">
+  <link rel="alternate" hreflang="x-default" href="https://zjgulai.github.io/Agent_mcp/architecture.html">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css">
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif; }
+    .cmd-block { background: #0a0a0a; border: 1px solid #27272a; }
+    pre code.hljs { background: transparent !important; padding: 0 !important; }
+    .prose-custom h2 { font-size: 1.5rem; font-weight: 700; color: #fafafa; margin-top: 3rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #27272a; }
+    .prose-custom h3 { font-size: 1.25rem; font-weight: 600; color: #e4e4e7; margin-top: 2rem; margin-bottom: 0.75rem; }
+    .prose-custom p { color: #a1a1aa; line-height: 1.7; margin-bottom: 1rem; max-width: 70ch; }
+    .prose-custom code { color: #818cf8; background: #18181b; padding: 2px 6px; border-radius: 4px; font-size: 0.875em; font-family: ui-monospace,SFMono-Regular,Menlo,monospace; }
+    .prose-custom pre code { color: #e4e4e7; background: transparent; padding: 0; white-space: pre; }
+    .prose-custom ul { color: #a1a1aa; margin-bottom: 1rem; padding-left: 1.5rem; list-style: disc; max-width: 70ch; }
+    .prose-custom ul li { margin: 0.35rem 0; }
+    .prose-custom table { font-size: 0.875rem; color: #a1a1aa; margin: 1.5rem 0; border-collapse: collapse; width: 100%; }
+    .prose-custom th { text-align: left; color: #fafafa; font-weight: 600; border-bottom: 1px solid #3f3f46; padding: 0.75rem; background: #18181b; }
+    .prose-custom td { border-bottom: 1px solid #1f1f23; padding: 0.75rem; vertical-align: top; }
+    .ascii { color: #d4d4d4; background: #0a0a0a; padding: 1.5rem; border-radius: 0.5rem; border: 1px solid #27272a; font-family: ui-monospace,SFMono-Regular,Menlo,monospace; white-space: pre; font-size: 0.85rem; line-height: 1.5; overflow-x: auto; }
+  </style>
+</head>
+<body>
+
+<nav class="fixed top-0 inset-x-0 z-50 bg-zinc-950/80 backdrop-blur border-b border-zinc-800">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="./index.html" class="flex items-center gap-2 group">
+      <span class="text-xl">🔌</span>
+      <span class="font-semibold tracking-tight text-zinc-200 group-hover:text-indigo-400 transition-colors">Agent_mcp</span>
+    </a>
+    <div class="hidden md:flex items-center gap-6">
+      <a href="./getting-started.html" class="text-zinc-400 hover:text-indigo-400 text-sm transition-colors">Getting Started</a>
+      <a href="./handbook.html" class="text-zinc-400 hover:text-indigo-400 text-sm transition-colors">Handbook</a>
+      <a href="./architecture.html" class="text-indigo-400 text-sm font-medium">Architecture</a>
+      <a href="https://github.com/zjgulai/Agent_mcp" target="_blank" rel="noopener" class="px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 rounded-md text-sm text-zinc-200 transition-colors">GitHub →</a>
+      <button id="lang-toggle" onclick="window.i18nToggle()" class="px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 rounded-md text-sm text-zinc-300 transition-colors border border-zinc-700" aria-label="Toggle language">中文</button>
+    </div>
+  </div>
+</nav>
+
+<main class="pt-16 max-w-4xl mx-auto px-6 py-12 prose-custom">
+
+  <p class="text-indigo-400 text-sm font-medium tracking-wider">DOCUMENTATION</p>
+  <h1 class="text-4xl md:text-5xl font-bold text-zinc-100 mb-4">Architecture</h1>
+  <p class="text-xl text-zinc-400 mb-12">One registry · four adapters · env-var-driven secrets · clean uninstall by anchor.</p>
+
+  <h2>Top-down map</h2>
+  <pre class="ascii">┌─────────────────────────────────────────────────────────────────────┐
+│  Agent_mcp (this repo)                                              │
+│                                                                     │
+│  registry/&lt;name&gt;/manifest.yaml   ← single source of truth           │
+│    │  declares: mcp_command, requires.env, compatibility            │
+│    │                                                                │
+│  agent/lib/                                                         │
+│    ├── manifest.py               ← shared schema (byte-id 3 repos)  │
+│    ├── adapter_opencode.py       ← JSON merge into mcp object       │
+│    ├── adapter_codex.py          ← TOML merge into [mcp_servers.x]  │
+│    ├── adapter_cursor.py         ← JSON merge into mcpServers       │
+│    ├── adapter_kimi.py           ← shell out to: kimi mcp add       │
+│    └── cli.py                    ← agent-mcp list/install/...       │
+│                                                                     │
+└─────────────┬───────────────────────────────────────────────────────┘
+              │ writes (with cp .bak.{ts} + _managed_by anchor)
+              ▼
+┌──────────────────┬───────────────┬──────────────┬─────────────────┐
+▼                  ▼               ▼              ▼                 ▼
+~/.config/opencode/  ~/.codex/      ~/.cursor/     ~/.kimi/    .agent-mcp-
+  opencode.json      config.toml    mcp.json       (via CLI)   managed.json
+  "mcp.&lt;name&gt;"      "[mcp_servers   "mcpServers.   kimi mcp     anchor record
+                      .&lt;name&gt;]"      &lt;name&gt;"        list</pre>
+
+  <h2>Why this shape</h2>
+  <p>Each AI CLI has its own MCP config format. Without a registry, you'd:</p>
+  <ul>
+    <li>maintain the same MCP definition <strong>four times</strong>;</li>
+    <li>drift between clients (opencode has v2 of the package, kimi still has v1);</li>
+    <li>scatter tokens across files <strong>(security disaster)</strong>;</li>
+    <li>have no global doctor — each client gives partial feedback only.</li>
+  </ul>
+
+  <h2>Secret model</h2>
+  <p>All MCP secrets live in shell environment, never in files:</p>
+<pre class="cmd-block rounded p-4 mt-3"><code class="language-yaml"># In manifest.yaml — declares the ENV VAR NAMES, not values
+requires:
+  binaries: [npx, node]
+  env: [GITHUB_TOKEN]</code></pre>
+  <p>When writing client config, the adapter writes <code>${GITHUB_TOKEN}</code> as a literal interpolation directive (opencode/cursor) or passes <code>$GITHUB_TOKEN</code> through to <code>kimi mcp add -e GITHUB_TOKEN=...</code> (which kimi then forwards into the MCP child process env). The actual token is never persisted on disk.</p>
+  <p>The schema validator includes a regex check: any manifest containing literal <code>ghp_*</code>, <code>sk-[a-zA-Z0-9]{10,}</code>, or <code>AIza[0-9A-Za-z_-]{20,}</code> is rejected at load time.</p>
+
+  <h2>The opencode adapter</h2>
+  <p>Merges into the <code>mcp</code> object in <code>~/.config/opencode/opencode.json</code>:</p>
+<pre class="cmd-block rounded p-4 mt-3"><code class="language-json">{
+  "mcp": {
+    "github": {
+      "type": "local",
+      "enabled": true,
+      "command": ["npx", "-y", "@modelcontextprotocol/server-github"],
+      "environment": { "GITHUB_TOKEN": "${GITHUB_TOKEN}" },
+      "_managed_by": "agent-mcp",
+      "_managed_name": "github",
+      "_managed_at": "2026-05-16T..."
+    }
+  }
+}</code></pre>
+
+  <h2>The codex adapter</h2>
+  <p>Appends a TOML section to <code>~/.codex/config.toml</code>:</p>
+<pre class="cmd-block rounded p-4 mt-3"><code class="language-toml">[mcp_servers.github]
+command = "npx"
+args = ["-y", "@modelcontextprotocol/server-github"]
+
+[mcp_servers.github.env]
+GITHUB_TOKEN = "${GITHUB_TOKEN}"</code></pre>
+  <p>Anchor is tracked in <code>~/.codex/.agent-mcp-managed.json</code> since TOML doesn't have a clean comment-attachment story.</p>
+
+  <h2>The cursor adapter</h2>
+  <p>Merges into <code>mcpServers</code> in <code>~/.cursor/mcp.json</code>:</p>
+<pre class="cmd-block rounded p-4 mt-3"><code class="language-json">{
+  "mcpServers": {
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": { "GITHUB_TOKEN": "${GITHUB_TOKEN}" },
+      "_managed_by": "agent-mcp"
+    }
+  }
+}</code></pre>
+
+  <h2>The kimi adapter</h2>
+  <p>kimi has a native subcommand. We shell out and let kimi own the file format:</p>
+<pre class="cmd-block rounded p-4 mt-3"><code class="language-bash">kimi mcp add github \
+  --transport stdio \
+  -e GITHUB_TOKEN="$GITHUB_TOKEN" \
+  -- npx -y @modelcontextprotocol/server-github</code></pre>
+  <p>Our anchor lives in <code>~/.kimi/.agent-mcp-managed.json</code> so we know which entries to clean up on uninstall.</p>
+
+  <h2>Backup discipline</h2>
+  <p>Every write to a client config file:</p>
+  <ol>
+    <li><code>cp &lt;target&gt; &lt;target&gt;.bak.{YYYYMMDDTHHMMSS}</code></li>
+    <li><code>prune_backups(keep=5)</code> — keep the 5 most recent backups, delete older.</li>
+  </ol>
+  <p>So if you panic, you can <code>cp opencode.json.bak.20260516T... opencode.json</code> in seconds.</p>
+
+  <h2>Uninstall protocol</h2>
+  <ol>
+    <li>Check the <code>_managed_by</code> anchor (or registry file for codex/kimi). Refuse if not ours.</li>
+    <li>Backup the current config.</li>
+    <li>Remove the entry.</li>
+    <li>If the resulting config is "empty in this section", clean up the section too.</li>
+    <li>Run <code>prune_backups(keep=5)</code> again.</li>
+  </ol>
+
+  <h2>Tests</h2>
+  <ul>
+    <li><strong class="text-zinc-200">28 schema tests</strong> — manifest validation, secret-literal rejection, MCP-specific fields.</li>
+    <li><strong class="text-zinc-200">11 adapter tests</strong> — install / uninstall round-trip, refusal to delete unmanaged entries.</li>
+    <li><strong class="text-zinc-200">Total: 39 tests, all green</strong>.</li>
+  </ul>
+
+</main>
+
+<script>hljs.highlightAll();</script>
+<script src="./assets/i18n.js" defer></script>
+</body>
+</html>

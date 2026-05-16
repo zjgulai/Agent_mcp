@@ -1,0 +1,37 @@
+kind: mcp
+name: github
+version: 0.1.0
+description: GitHub MCP server providing repo, issue, PR, code search, CI workflow access. Use whenever working with github.com — reviewing PRs, hunting issues, inspecting CI failures, querying remote repo content.
+domain: ops
+priority: P0
+
+compatibility:
+  opencode: native
+  codex: native
+  cursor: native
+  kimi: native
+
+source:
+  type: npm
+  package: "@modelcontextprotocol/server-github"
+
+mcp_command:
+  - npx
+  - "-y"
+  - "@modelcontextprotocol/server-github"
+
+requires:
+  binaries: [npx, node]
+  env: [GITHUB_TOKEN]
+
+triggers:
+  - github
+  - pull request
+  - PR review
+  - issue
+  - workflow
+  - CI failure
+
+links:
+  upstream: https://github.com/github/github-mcp-server
+  docs: https://github.com/modelcontextprotocol/servers/tree/main/src/github
