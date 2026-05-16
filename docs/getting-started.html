@@ -30,6 +30,56 @@
     .prose-custom td { border-bottom: 1px solid #1f1f23; padding: 0.75rem; vertical-align: top; }
     .step { padding-left: 1.5rem; border-left: 2px solid rgba(99,102,241,0.4); margin-bottom: 2rem; }
   </style>
+
+  <script>
+    window.I18N_ZH = window.I18N_ZH || {};
+    window.I18N_ZH['getting-started'] = {
+      'nav.getting-started':  '快速开始',
+      'nav.handbook':         '手册',
+      'nav.architecture':     '架构',
+      'nav.github':           'GitHub →',
+
+      'header.eyebrow':       '文档',
+      'header.title':         '快速开始',
+      'header.subtitle':      '从空白机器到 4 个 AI CLI 都装上 MCP,约 5 分钟。',
+
+      'prereq.h':             '前置条件',
+      'prereq.py':            'Python 3.9+',
+      'prereq.git':           'git',
+      'prereq.npx':           'npx + node(大多数 MCP 走 npm)',
+      'prereq.uvx':           'uvx(git MCP 走 pypi)',
+      'prereq.clis':          '一个或多个 AI CLI:opencode / codex / cursor / kimi',
+
+      'step1.h':              '1. clone 仓',
+
+      'step2.h':              '2. 设置必需的环境变量',
+      'step2.intro':          '所有 token 都走 env。加到 ~/.zshrc:',
+      'step2.outro':          '然后 source ~/.zshrc。不用的 env 可以跳过,doctor 只会 WARN。',
+
+      'step3.h':              '3. 先做体检',
+
+      'step4.h':              '4. 给一个客户端装一个 MCP',
+
+      'step5.h':              '5. 把 6 个 P0 MCP 装到 4 个客户端',
+      'step5.outro':          'kimi 走 kimi mcp add CLI;其他三家 merge 各自的 JSON/TOML 配置文件。完成后 4 个 CLI 都看到这 6 个 MCP。',
+
+      'step6.h':              '6. 各客户端原生方式验证',
+
+      'step7.h':              '7. 卸载同样干净',
+
+      'troubleshoot.h':       '故障排查',
+      'troubleshoot.env':     'WARN env 未设置 — 不阻止安装;只有运行时调用该 MCP 时才会失败。',
+      'troubleshoot.npx':     'npx 首次慢 — npm 首次拉包,后续调用就快了。',
+      'troubleshoot.uvx':     'uvx 缺失 — brew install uv 或 pip install uv。',
+      'troubleshoot.kimi':    'kimi mcp add 失败 — 确认 kimi CLI 已登录(kimi --version 能打印即可)。',
+
+      'next.h':               '下一步',
+      'next.handbook-pre':    '手册',
+      'next.handbook':        ' — 每一个 MCP 解释清楚,每一个适配器接线明白。',
+      'next.arch-pre':        '架构',
+      'next.arch':            ' — 单一注册表 + 四适配器形态。',
+    };
+  </script>
 </head>
 <body>
 
@@ -40,10 +90,10 @@
       <span class="font-semibold tracking-tight text-zinc-200 group-hover:text-indigo-400 transition-colors">Agent_mcp</span>
     </a>
     <div class="hidden md:flex items-center gap-6">
-      <a href="./getting-started.html" class="text-indigo-400 text-sm font-medium">Getting Started</a>
-      <a href="./handbook.html" class="text-zinc-400 hover:text-indigo-400 text-sm transition-colors">Handbook</a>
-      <a href="./architecture.html" class="text-zinc-400 hover:text-indigo-400 text-sm transition-colors">Architecture</a>
-      <a href="https://github.com/zjgulai/Agent_mcp" target="_blank" rel="noopener" class="px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 rounded-md text-sm text-zinc-200 transition-colors">GitHub →</a>
+      <a href="./getting-started.html" class="text-indigo-400 text-sm font-medium" data-i18n="nav.getting-started">Getting Started</a>
+      <a href="./handbook.html" class="text-zinc-400 hover:text-indigo-400 text-sm transition-colors" data-i18n="nav.handbook">Handbook</a>
+      <a href="./architecture.html" class="text-zinc-400 hover:text-indigo-400 text-sm transition-colors" data-i18n="nav.architecture">Architecture</a>
+      <a href="https://github.com/zjgulai/Agent_mcp" target="_blank" rel="noopener" class="px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 rounded-md text-sm text-zinc-200 transition-colors" data-i18n="nav.github">GitHub →</a>
       <button id="lang-toggle" onclick="window.i18nToggle()" class="px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 rounded-md text-sm text-zinc-300 transition-colors border border-zinc-700" aria-label="Toggle language">中文</button>
     </div>
   </div>
@@ -51,39 +101,39 @@
 
 <main class="pt-16 max-w-4xl mx-auto px-6 py-12 prose-custom">
 
-  <p class="text-indigo-400 text-sm font-medium tracking-wider">DOCUMENTATION</p>
-  <h1 class="text-4xl md:text-5xl font-bold text-zinc-100 mb-4">Getting Started</h1>
-  <p class="text-xl text-zinc-400 mb-12">From a fresh machine to MCPs in 4 AI CLIs — about 5 minutes.</p>
+  <p class="text-indigo-400 text-sm font-medium tracking-wider" data-i18n="header.eyebrow">DOCUMENTATION</p>
+  <h1 class="text-4xl md:text-5xl font-bold text-zinc-100 mb-4" data-i18n="header.title">Getting Started</h1>
+  <p class="text-xl text-zinc-400 mb-12" data-i18n="header.subtitle">From a fresh machine to MCPs in 4 AI CLIs — about 5 minutes.</p>
 
-  <h2>Prerequisites</h2>
+  <h2 data-i18n="prereq.h">Prerequisites</h2>
   <ul>
-    <li>Python 3.9+</li>
-    <li>git</li>
-    <li>npx + node (for most MCPs from npm)</li>
-    <li>uvx (for git MCP from pypi)</li>
-    <li>One or more AI CLIs: opencode / codex / cursor / kimi</li>
+    <li data-i18n="prereq.py">Python 3.9+</li>
+    <li data-i18n="prereq.git">git</li>
+    <li data-i18n="prereq.npx">npx + node (for most MCPs from npm)</li>
+    <li data-i18n="prereq.uvx">uvx (for git MCP from pypi)</li>
+    <li data-i18n="prereq.clis">One or more AI CLIs: opencode / codex / cursor / kimi</li>
   </ul>
 
   <div class="step">
-    <h2>1. Clone the repo</h2>
+    <h2 data-i18n="step1.h">1. Clone the repo</h2>
 <pre class="cmd-block rounded p-4 mt-3"><code class="language-bash">git clone https://github.com/zjgulai/Agent_mcp.git ~/project/Agent_mcp
 cd ~/project/Agent_mcp
 python3 -m pip install --user pyyaml tomli tomli_w</code></pre>
   </div>
 
   <div class="step">
-    <h2>2. Set required env vars</h2>
-    <p>Tokens stay in env. Add to your <code>~/.zshrc</code>:</p>
+    <h2 data-i18n="step2.h">2. Set required env vars</h2>
+    <p data-i18n="step2.intro">Tokens stay in env. Add to your <code>~/.zshrc</code>:</p>
 <pre class="cmd-block rounded p-4 mt-3"><code class="language-bash">export GITHUB_TOKEN=ghp_yourtoken
 export POSTGRES_CONNECTION_STRING=postgres://user:pass@host:5432/db
 export SENTRY_AUTH_TOKEN=...
 export FIGMA_API_TOKEN=...
 export LINEAR_API_KEY=lin_api_...</code></pre>
-    <p>Then <code>source ~/.zshrc</code>. Skip env vars you don't need; <code>doctor</code> will just WARN about them.</p>
+    <p data-i18n="step2.outro">Then <code>source ~/.zshrc</code>. Skip env vars you don't need; <code>doctor</code> will just WARN about them.</p>
   </div>
 
   <div class="step">
-    <h2>3. Health check first</h2>
+    <h2 data-i18n="step3.h">3. Health check first</h2>
 <pre class="cmd-block rounded p-4 mt-3"><code class="language-bash">./bin/agent-mcp doctor
 
 == schema ==
@@ -100,7 +150,7 @@ export LINEAR_API_KEY=lin_api_...</code></pre>
   </div>
 
   <div class="step">
-    <h2>4. Install one MCP to one client</h2>
+    <h2 data-i18n="step4.h">4. Install one MCP to one client</h2>
 <pre class="cmd-block rounded p-4 mt-3"><code class="language-bash">./bin/agent-mcp install context7 --client opencode
 
 [
@@ -114,15 +164,15 @@ export LINEAR_API_KEY=lin_api_...</code></pre>
   </div>
 
   <div class="step">
-    <h2>5. Install all 6 P0 MCPs to all 4 clients</h2>
+    <h2 data-i18n="step5.h">5. Install all 6 P0 MCPs to all 4 clients</h2>
 <pre class="cmd-block rounded p-4 mt-3"><code class="language-bash">for m in github filesystem context7 playwright sequential-thinking git; do
   ./bin/agent-mcp install "$m" --client all
 done</code></pre>
-    <p>For kimi this calls <code>kimi mcp add</code> CLI; for others it merges JSON/TOML config files. All four CLIs now see the same 6 MCPs.</p>
+    <p data-i18n="step5.outro">For kimi this calls <code>kimi mcp add</code> CLI; for others it merges JSON/TOML config files. All four CLIs now see the same 6 MCPs.</p>
   </div>
 
   <div class="step">
-    <h2>6. Verify natively per client</h2>
+    <h2 data-i18n="step6.h">6. Verify natively per client</h2>
 <pre class="cmd-block rounded p-4 mt-3"><code class="language-bash"># opencode: read mcp keys from JSON
 python3 -c 'import json; d=json.load(open("/Users/you/.config/opencode/opencode.json")); print(list(d["mcp"].keys()))'
 
@@ -137,24 +187,24 @@ kimi mcp list</code></pre>
   </div>
 
   <div class="step">
-    <h2>7. Uninstall is just as clean</h2>
+    <h2 data-i18n="step7.h">7. Uninstall is just as clean</h2>
 <pre class="cmd-block rounded p-4 mt-3"><code class="language-bash">./bin/agent-mcp uninstall github --client all
 
 # Anchors are checked — never deletes entries we didn't manage.</code></pre>
   </div>
 
-  <h2>Troubleshooting</h2>
+  <h2 data-i18n="troubleshoot.h">Troubleshooting</h2>
   <ul>
-    <li><strong class="text-zinc-200">WARN env not set</strong> — only blocks if you try to use that MCP at runtime; install still succeeds.</li>
-    <li><strong class="text-zinc-200">npx slow first call</strong> — npm fetches the package on first invocation; later calls are fast.</li>
-    <li><strong class="text-zinc-200">uvx missing</strong> — install via <code>brew install uv</code> or <code>pip install uv</code>.</li>
-    <li><strong class="text-zinc-200">kimi mcp add fails</strong> — make sure <code>kimi</code> CLI is authenticated (<code>kimi --version</code> should print).</li>
+    <li data-i18n-html="troubleshoot.env"><strong class="text-zinc-200">WARN env not set</strong> — only blocks if you try to use that MCP at runtime; install still succeeds.</li>
+    <li data-i18n-html="troubleshoot.npx"><strong class="text-zinc-200">npx slow first call</strong> — npm fetches the package on first invocation; later calls are fast.</li>
+    <li data-i18n-html="troubleshoot.uvx"><strong class="text-zinc-200">uvx missing</strong> — install via <code>brew install uv</code> or <code>pip install uv</code>.</li>
+    <li data-i18n-html="troubleshoot.kimi"><strong class="text-zinc-200">kimi mcp add fails</strong> — make sure <code>kimi</code> CLI is authenticated (<code>kimi --version</code> should print).</li>
   </ul>
 
-  <h2>Next</h2>
+  <h2 data-i18n="next.h">Next</h2>
   <ul>
-    <li><a href="./handbook.html">The Handbook</a> — every MCP explained, every adapter wired.</li>
-    <li><a href="./architecture.html">Architecture</a> — single-registry + 4 adapter shapes.</li>
+    <li><a href="./handbook.html" data-i18n="next.handbook-pre">The Handbook</a><span data-i18n="next.handbook"> — every MCP explained, every adapter wired.</span></li>
+    <li><a href="./architecture.html" data-i18n="next.arch-pre">Architecture</a><span data-i18n="next.arch"> — single-registry + 4 adapter shapes.</span></li>
   </ul>
 
 </main>

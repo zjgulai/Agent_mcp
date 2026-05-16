@@ -37,6 +37,82 @@
     .badge.env { background: rgba(168,85,247,0.15); color: #c084fc; font-family: ui-monospace,SFMono-Regular,Menlo,monospace; }
     .badge.bin { background: rgba(99,102,241,0.15); color: #818cf8; font-family: ui-monospace,SFMono-Regular,Menlo,monospace; }
   </style>
+
+  <script>
+    window.I18N_ZH = window.I18N_ZH || {};
+    window.I18N_ZH['handbook'] = {
+      'nav.getting-started':  '快速开始',
+      'nav.handbook':         '手册',
+      'nav.architecture':     '架构',
+      'nav.github':           'GitHub →',
+
+      'header.eyebrow':       '文档',
+      'header.title':         '手册',
+      'header.subtitle':      '每一个 MCP · 每一个 env · 每一条命令。',
+
+      'toc.title':            '目录',
+      'toc.s1':               '§1 总览',
+      'toc.s2':               '§2 十个 MCP',
+      'toc.s3':               '§3 兼容性矩阵',
+      'toc.s4':               '§4 CLI 命令',
+      'toc.s5':               '§5 Manifest Schema',
+      'toc.s6':               '§6 Secret 模型',
+
+      's1.title':             '§1 总览',
+      's1.intro':             'Agent_mcp 是三仓体系中的上下文层:',
+      's1.b1-pre':            'Agent_skills',
+      's1.b1':                ' — 方法论:agent 如何思考(16 个 skill)',
+      's1.b2-pre':            'Agent_hook',
+      's1.b2':                ' — 强制:什么必须发生(9 个 hook)',
+      's1.b3-pre':            'Agent_mcp',
+      's1.b3':                ' — 上下文:agent 能接触什么(10 个 MCP)',
+
+      's2.title':             '§2 十个 MCP',
+      's2.github-text':       'PR、issue、代码搜索、CI 失败、workflow 检查。默认的"agent 接 github"MCP。当你想做 review、追 issue、写 PR、debug-CI 时用它。',
+      's2.filesystem-text':   '受 allowlist 约束的文件 IO。即使 CLI 有自带的文件工具,边界访问才是关键。',
+      's2.context7-text':     '为 React、Next.js、Supabase、Stripe、FastAPI、cloud SDK 等高速变化的库拉最新文档,让 agent 不再引用过时 API。触发词:use context7。',
+      's2.playwright-text':   '真浏览器:navigate、点击、填表、截图、读 DOM。配合 frontend-design skill 闭环 — 生成 UI、然后验证它真的渲染。',
+      's2.thinking-text':     '结构化多步思考层。用于复杂重构、分阶段迁移、架构设计、事故调试。',
+      's2.git-text':          '本地仓库历史:blame、log、diff、commit 元数据。补 GitHub MCP(只看远端)的盲区。',
+      's2.postgres-text':     '读 schema、跑查询、做 migration 体检。强烈建议指向 staging/dev 库并用只读角色。',
+      's2.sentry-text':       '生产异常 → 代码修复一步到位。把通常拖垮团队的回路缩短。',
+      's2.figma-text':        '读设计 token、组件、文本内容。让 agent 别再从模糊截图里猜布局。',
+      's2.linear-text':       '读 ticket、写状态、显示分配工作。把"ticket → 计划 → 完成"接进一个工具。',
+
+      's3.title':             '§3 兼容性矩阵',
+      's3.intro':             '10 个 MCP 全部在 4 个客户端原生工作(MCP 是标准协议,每个现代 CLI 都讲)。区别在于配置怎么写:',
+      's3.h-client':          '客户端',
+      's3.h-config':          '配置文件',
+      's3.h-anchor':          '锚点',
+      's3.opencode-config':   '→ mcp.<name>',
+      's3.opencode-anchor':   '_managed_by JSON 字段',
+      's3.codex-config':      '→ [mcp_servers.<name>]',
+      's3.codex-anchor':      '~/.codex/.agent-mcp-managed.json',
+      's3.cursor-config':     '→ mcpServers.<name>',
+      's3.cursor-anchor':     '_managed_by JSON 字段',
+      's3.kimi-config':       '通过 kimi mcp add CLI',
+      's3.kimi-anchor':       '~/.kimi/.agent-mcp-managed.json',
+
+      's4.title':             '§4 CLI 命令',
+      's4.h-cmd':             '命令',
+      's4.h-does':            '作用',
+      's4.list-does':         '表格视图:10 个 MCP × 4 个客户端的安装状态。',
+      's4.install-does':      '备份、写配置、加锚点。',
+      's4.uninstall-does':    '按锚点删除,拒绝非托管条目。',
+      's4.doctor-does':       'schema 验证、二进制检查、env 满足度、锚点一致性。',
+      's4.show-does':         '把 manifest 以 JSON 打印。',
+
+      's5.title':             '§5 Manifest Schema',
+
+      's6.title':             '§6 Secret 模型',
+      's6.intro':             'Token 永远不进 agent-mcp 管理的任何文件。流程是:',
+      's6.b1':                '你在 shell 里 export 这个 token:export GITHUB_TOKEN=ghp_...',
+      's6.b2':                'manifest 声明 env 名:requires.env: [GITHUB_TOKEN]',
+      's6.b3':                'Adapter 写 ${GITHUB_TOKEN}(字面插值,非值)进客户端配置。',
+      's6.b4':                '运行时,客户端把 env 传给 MCP 子进程,后者看到真值。',
+      's6.outro':             'Schema 在加载时就拒明文 token 模式:',
+    };
+  </script>
 </head>
 <body>
 
@@ -47,10 +123,10 @@
       <span class="font-semibold tracking-tight text-zinc-200 group-hover:text-indigo-400 transition-colors">Agent_mcp</span>
     </a>
     <div class="hidden md:flex items-center gap-6">
-      <a href="./getting-started.html" class="text-zinc-400 hover:text-indigo-400 text-sm transition-colors">Getting Started</a>
-      <a href="./handbook.html" class="text-indigo-400 text-sm font-medium">Handbook</a>
-      <a href="./architecture.html" class="text-zinc-400 hover:text-indigo-400 text-sm transition-colors">Architecture</a>
-      <a href="https://github.com/zjgulai/Agent_mcp" target="_blank" rel="noopener" class="px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 rounded-md text-sm text-zinc-200 transition-colors">GitHub →</a>
+      <a href="./getting-started.html" class="text-zinc-400 hover:text-indigo-400 text-sm transition-colors" data-i18n="nav.getting-started">Getting Started</a>
+      <a href="./handbook.html" class="text-indigo-400 text-sm font-medium" data-i18n="nav.handbook">Handbook</a>
+      <a href="./architecture.html" class="text-zinc-400 hover:text-indigo-400 text-sm transition-colors" data-i18n="nav.architecture">Architecture</a>
+      <a href="https://github.com/zjgulai/Agent_mcp" target="_blank" rel="noopener" class="px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 rounded-md text-sm text-zinc-200 transition-colors" data-i18n="nav.github">GitHub →</a>
       <button id="lang-toggle" onclick="window.i18nToggle()" class="px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 rounded-md text-sm text-zinc-300 transition-colors border border-zinc-700" aria-label="Toggle language">中文</button>
     </div>
   </div>
@@ -58,34 +134,34 @@
 
 <main class="pt-16 max-w-4xl mx-auto px-6 py-12 prose-custom">
 
-  <p class="text-indigo-400 text-sm font-medium tracking-wider">DOCUMENTATION</p>
-  <h1 class="text-4xl md:text-5xl font-bold text-zinc-100 mb-4">The Handbook</h1>
-  <p class="text-xl text-zinc-400 mb-12">Every MCP. Every env var. Every command.</p>
+  <p class="text-indigo-400 text-sm font-medium tracking-wider" data-i18n="header.eyebrow">DOCUMENTATION</p>
+  <h1 class="text-4xl md:text-5xl font-bold text-zinc-100 mb-4" data-i18n="header.title">The Handbook</h1>
+  <p class="text-xl text-zinc-400 mb-12" data-i18n="header.subtitle">Every MCP. Every env var. Every command.</p>
 
   <div class="toc">
-    <strong class="text-zinc-200">Contents</strong>
+    <strong class="text-zinc-200" data-i18n="toc.title">Contents</strong>
     <ul>
-      <li><a href="#overview">§1 Overview</a></li>
-      <li><a href="#mcps">§2 The 10 MCPs</a></li>
-      <li><a href="#matrix">§3 Compatibility Matrix</a></li>
-      <li><a href="#commands">§4 CLI Commands</a></li>
-      <li><a href="#manifest">§5 Manifest Schema</a></li>
-      <li><a href="#secret">§6 Secret Model</a></li>
+      <li><a href="#overview" data-i18n="toc.s1">§1 Overview</a></li>
+      <li><a href="#mcps" data-i18n="toc.s2">§2 The 10 MCPs</a></li>
+      <li><a href="#matrix" data-i18n="toc.s3">§3 Compatibility Matrix</a></li>
+      <li><a href="#commands" data-i18n="toc.s4">§4 CLI Commands</a></li>
+      <li><a href="#manifest" data-i18n="toc.s5">§5 Manifest Schema</a></li>
+      <li><a href="#secret" data-i18n="toc.s6">§6 Secret Model</a></li>
     </ul>
   </div>
 
   <section id="overview">
-    <h2>§1 Overview</h2>
-    <p>Agent_mcp is the context layer of a three-repo system:</p>
+    <h2 data-i18n="s1.title">§1 Overview</h2>
+    <p data-i18n="s1.intro">Agent_mcp is the context layer of a three-repo system:</p>
     <ul>
-      <li><a href="https://github.com/zjgulai/Agent_skills">Agent_skills</a> — <em>methodology</em>: how the agent thinks (16 skills)</li>
-      <li><a href="https://github.com/zjgulai/Agent_hook">Agent_hook</a> — <em>enforcement</em>: what must happen (9 hooks)</li>
-      <li><strong class="text-zinc-200">Agent_mcp</strong> — <em>context</em>: what the agent can touch (10 MCPs)</li>
+      <li><a href="https://github.com/zjgulai/Agent_skills" data-i18n="s1.b1-pre">Agent_skills</a><span data-i18n="s1.b1"> — methodology: how the agent thinks (16 skills)</span></li>
+      <li><a href="https://github.com/zjgulai/Agent_hook" data-i18n="s1.b2-pre">Agent_hook</a><span data-i18n="s1.b2"> — enforcement: what must happen (9 hooks)</span></li>
+      <li><strong class="text-zinc-200" data-i18n="s1.b3-pre">Agent_mcp</strong><span data-i18n="s1.b3"> — context: what the agent can touch (10 MCPs)</span></li>
     </ul>
   </section>
 
   <section id="mcps">
-    <h2>§2 The 10 MCPs</h2>
+    <h2 data-i18n="s2.title">§2 The 10 MCPs</h2>
 
     <div class="mcp-card">
       <h3>github</h3>
@@ -94,104 +170,120 @@
         <span class="badge env">GITHUB_TOKEN</span>
         <span class="badge bin">npx · node</span>
       </div>
-      <p>Issues, PRs, code search, CI failures, workflow inspection. The default "agent-touches-github" MCP. Use whenever review, hunt, write-PR, debug-CI is the goal.</p>
+      <p data-i18n="s2.github-text">Issues, PRs, code search, CI failures, workflow inspection. The default "agent-touches-github" MCP. Use whenever review, hunt, write-PR, debug-CI is the goal.</p>
       <p><code class="text-indigo-400">npx -y @modelcontextprotocol/server-github</code></p>
     </div>
 
     <div class="mcp-card">
       <h3>filesystem</h3>
       <div class="badge-row"><span class="badge p0">P0</span><span class="badge bin">npx · node</span></div>
-      <p>Controlled file IO scoped to an allowlist. Survives even when CLIs have their own file tools — bounded access is the point.</p>
+      <p data-i18n="s2.filesystem-text">Controlled file IO scoped to an allowlist. Survives even when CLIs have their own file tools — bounded access is the point.</p>
       <p><code class="text-indigo-400">npx -y @modelcontextprotocol/server-filesystem $HOME/project</code></p>
     </div>
 
     <div class="mcp-card">
       <h3>context7</h3>
       <div class="badge-row"><span class="badge p0">P0</span><span class="badge bin">npx · node</span></div>
-      <p>Pulls up-to-date library docs (React, Next.js, Supabase, Stripe, FastAPI, cloud SDKs) so the agent stops citing stale APIs. Use phrase: <code>use context7</code>.</p>
+      <p data-i18n-html="s2.context7-text">Pulls up-to-date library docs (React, Next.js, Supabase, Stripe, FastAPI, cloud SDKs) so the agent stops citing stale APIs. Use phrase: <code>use context7</code>.</p>
       <p><code class="text-indigo-400">npx -y @upstash/context7-mcp@latest</code></p>
     </div>
 
     <div class="mcp-card">
       <h3>playwright</h3>
       <div class="badge-row"><span class="badge p0">P0</span><span class="badge bin">npx · node</span></div>
-      <p>Real browser: navigate, click, fill, screenshot, read DOM. Pairs with frontend-design skill — generate UI, then verify it actually renders.</p>
+      <p data-i18n="s2.playwright-text">Real browser: navigate, click, fill, screenshot, read DOM. Pairs with frontend-design skill — generate UI, then verify it actually renders.</p>
       <p><code class="text-indigo-400">npx -y @playwright/mcp@latest</code></p>
     </div>
 
     <div class="mcp-card">
       <h3>sequential-thinking</h3>
       <div class="badge-row"><span class="badge p0">P0</span><span class="badge bin">npx · node</span></div>
-      <p>Structured multi-step thinking layer. Use for complex refactors, phased migrations, architecture design, incident debugging.</p>
+      <p data-i18n="s2.thinking-text">Structured multi-step thinking layer. Use for complex refactors, phased migrations, architecture design, incident debugging.</p>
       <p><code class="text-indigo-400">npx -y @modelcontextprotocol/server-sequential-thinking</code></p>
     </div>
 
     <div class="mcp-card">
       <h3>git</h3>
       <div class="badge-row"><span class="badge p0">P0</span><span class="badge bin">uvx</span></div>
-      <p>Local repo history: blame, log, diff, commit metadata. Complements GitHub MCP (which is remote-only).</p>
+      <p data-i18n="s2.git-text">Local repo history: blame, log, diff, commit metadata. Complements GitHub MCP (which is remote-only).</p>
       <p><code class="text-indigo-400">uvx mcp-server-git</code></p>
     </div>
 
     <div class="mcp-card">
       <h3>postgres</h3>
       <div class="badge-row"><span class="badge p1">P1</span><span class="badge env">POSTGRES_CONNECTION_STRING</span><span class="badge bin">npx · node</span></div>
-      <p>Read schema, run queries, sanity-check migrations. Strongly recommended: point at staging/dev DB with read-only role.</p>
+      <p data-i18n="s2.postgres-text">Read schema, run queries, sanity-check migrations. Strongly recommended: point at staging/dev DB with read-only role.</p>
       <p><code class="text-indigo-400">npx -y @modelcontextprotocol/server-postgres $POSTGRES_CONNECTION_STRING</code></p>
     </div>
 
     <div class="mcp-card">
       <h3>sentry</h3>
       <div class="badge-row"><span class="badge p1">P1</span><span class="badge env">SENTRY_AUTH_TOKEN</span><span class="badge bin">npx · node</span></div>
-      <p>Production exceptions → code fix in one step. Shortens the cycle that usually breaks teams.</p>
+      <p data-i18n="s2.sentry-text">Production exceptions → code fix in one step. Shortens the cycle that usually breaks teams.</p>
       <p><code class="text-indigo-400">npx -y @sentry/mcp-server</code></p>
     </div>
 
     <div class="mcp-card">
       <h3>figma</h3>
       <div class="badge-row"><span class="badge p1">P1</span><span class="badge env">FIGMA_API_TOKEN</span><span class="badge bin">npx · node</span></div>
-      <p>Read design tokens, components, text content. Stops the agent from guessing layouts from blurry screenshots.</p>
+      <p data-i18n="s2.figma-text">Read design tokens, components, text content. Stops the agent from guessing layouts from blurry screenshots.</p>
       <p><code class="text-indigo-400">npx -y @figma/mcp-server</code></p>
     </div>
 
     <div class="mcp-card">
       <h3>linear</h3>
       <div class="badge-row"><span class="badge p1">P1</span><span class="badge env">LINEAR_API_KEY</span><span class="badge bin">npx · node</span></div>
-      <p>Read tickets, write status, surface assigned work. Connects "ticket → plan → completed" in one tool.</p>
+      <p data-i18n="s2.linear-text">Read tickets, write status, surface assigned work. Connects "ticket → plan → completed" in one tool.</p>
       <p><code class="text-indigo-400">npx -y @linear/mcp-server</code></p>
     </div>
   </section>
 
   <section id="matrix">
-    <h2>§3 Compatibility Matrix</h2>
-    <p>All 10 MCPs work on all 4 clients natively (MCP is a standard protocol — every modern CLI speaks it). What differs is <em>how the config gets written</em>:</p>
+    <h2 data-i18n="s3.title">§3 Compatibility Matrix</h2>
+    <p data-i18n-html="s3.intro">All 10 MCPs work on all 4 clients natively (MCP is a standard protocol — every modern CLI speaks it). What differs is <em>how the config gets written</em>:</p>
     <table>
-      <thead><tr><th>Client</th><th>Config file</th><th>Anchor</th></tr></thead>
+      <thead><tr><th data-i18n="s3.h-client">Client</th><th data-i18n="s3.h-config">Config file</th><th data-i18n="s3.h-anchor">Anchor</th></tr></thead>
       <tbody>
-        <tr><td>opencode</td><td><code>~/.config/opencode/opencode.json</code> → <code>mcp.&lt;name&gt;</code></td><td><code>_managed_by</code> JSON field</td></tr>
-        <tr><td>codex</td><td><code>~/.codex/config.toml</code> → <code>[mcp_servers.&lt;name&gt;]</code></td><td><code>~/.codex/.agent-mcp-managed.json</code></td></tr>
-        <tr><td>cursor</td><td><code>~/.cursor/mcp.json</code> → <code>mcpServers.&lt;name&gt;</code></td><td><code>_managed_by</code> JSON field</td></tr>
-        <tr><td>kimi</td><td>via <code>kimi mcp add</code> CLI</td><td><code>~/.kimi/.agent-mcp-managed.json</code></td></tr>
+        <tr>
+          <td>opencode</td>
+          <td><code>~/.config/opencode/opencode.json</code><span data-i18n="s3.opencode-config"> → <code>mcp.&lt;name&gt;</code></span></td>
+          <td data-i18n-html="s3.opencode-anchor"><code>_managed_by</code> JSON field</td>
+        </tr>
+        <tr>
+          <td>codex</td>
+          <td><code>~/.codex/config.toml</code><span data-i18n="s3.codex-config"> → <code>[mcp_servers.&lt;name&gt;]</code></span></td>
+          <td data-i18n-html="s3.codex-anchor"><code>~/.codex/.agent-mcp-managed.json</code></td>
+        </tr>
+        <tr>
+          <td>cursor</td>
+          <td><code>~/.cursor/mcp.json</code><span data-i18n="s3.cursor-config"> → <code>mcpServers.&lt;name&gt;</code></span></td>
+          <td data-i18n-html="s3.cursor-anchor"><code>_managed_by</code> JSON field</td>
+        </tr>
+        <tr>
+          <td>kimi</td>
+          <td data-i18n-html="s3.kimi-config">via <code>kimi mcp add</code> CLI</td>
+          <td data-i18n-html="s3.kimi-anchor"><code>~/.kimi/.agent-mcp-managed.json</code></td>
+        </tr>
       </tbody>
     </table>
   </section>
 
   <section id="commands">
-    <h2>§4 CLI Commands</h2>
+    <h2 data-i18n="s4.title">§4 CLI Commands</h2>
     <table>
-      <thead><tr><th>Command</th><th>Does</th></tr></thead>
+      <thead><tr><th data-i18n="s4.h-cmd">Command</th><th data-i18n="s4.h-does">Does</th></tr></thead>
       <tbody>
-        <tr><td><code>agent-mcp list</code></td><td>Tabular view of all 10 MCPs × 4 client install states.</td></tr>
-        <tr><td><code>agent-mcp install &lt;name&gt; --client all|opencode|codex|cursor|kimi</code></td><td>Backup, write config, anchor.</td></tr>
-        <tr><td><code>agent-mcp uninstall &lt;name&gt; --client all|...</code></td><td>Remove by anchor. Refuse non-managed entries.</td></tr>
-        <tr><td><code>agent-mcp doctor</code></td><td>Schema validation, binary check, env satisfaction, anchor consistency.</td></tr>
-        <tr><td><code>agent-mcp show &lt;name&gt;</code></td><td>Print manifest as JSON.</td></tr>
+        <tr><td><code>agent-mcp list</code></td><td data-i18n="s4.list-does">Tabular view of all 10 MCPs × 4 client install states.</td></tr>
+        <tr><td><code>agent-mcp install &lt;name&gt; --client all|opencode|codex|cursor|kimi</code></td><td data-i18n="s4.install-does">Backup, write config, anchor.</td></tr>
+        <tr><td><code>agent-mcp uninstall &lt;name&gt; --client all|...</code></td><td data-i18n="s4.uninstall-does">Remove by anchor. Refuse non-managed entries.</td></tr>
+        <tr><td><code>agent-mcp doctor</code></td><td data-i18n="s4.doctor-does">Schema validation, binary check, env satisfaction, anchor consistency.</td></tr>
+        <tr><td><code>agent-mcp show &lt;name&gt;</code></td><td data-i18n="s4.show-does">Print manifest as JSON.</td></tr>
       </tbody>
     </table>
   </section>
 
   <section id="manifest">
-    <h2>§5 Manifest Schema</h2>
+    <h2 data-i18n="s5.title">§5 Manifest Schema</h2>
 <pre class="cmd-block rounded p-4 mt-3"><code class="language-yaml">kind: mcp                         # required
 name: github                      # required: kebab-case
 version: 0.1.0                    # required: semver
@@ -224,15 +316,15 @@ triggers: [github, pull request, issue, CI failure]</code></pre>
   </section>
 
   <section id="secret">
-    <h2>§6 Secret Model</h2>
-    <p>Tokens never live in any file managed by agent-mcp. The flow is:</p>
+    <h2 data-i18n="s6.title">§6 Secret Model</h2>
+    <p data-i18n="s6.intro">Tokens never live in any file managed by agent-mcp. The flow is:</p>
     <ol>
-      <li>You export the token in your shell: <code>export GITHUB_TOKEN=ghp_...</code>.</li>
-      <li>manifest declares the env name: <code>requires.env: [GITHUB_TOKEN]</code>.</li>
-      <li>Adapter writes <code>${GITHUB_TOKEN}</code> (a literal interpolation, not the value) into client config.</li>
-      <li>At runtime, the client passes the env to the MCP child process, which sees the actual token.</li>
+      <li data-i18n-html="s6.b1">You export the token in your shell: <code>export GITHUB_TOKEN=ghp_...</code>.</li>
+      <li data-i18n-html="s6.b2">manifest declares the env name: <code>requires.env: [GITHUB_TOKEN]</code>.</li>
+      <li data-i18n-html="s6.b3">Adapter writes <code>${GITHUB_TOKEN}</code> (a literal interpolation, not the value) into client config.</li>
+      <li data-i18n="s6.b4">At runtime, the client passes the env to the MCP child process, which sees the actual token.</li>
     </ol>
-    <p>Schema rejects literal token patterns at load time:</p>
+    <p data-i18n="s6.outro">Schema rejects literal token patterns at load time:</p>
 <pre class="cmd-block rounded p-4 mt-3"><code class="language-python"># From agent/lib/manifest.py
 TOKEN_LITERAL_RE = re.compile(
     r"(ghp_|gho_|sk-[a-zA-Z0-9]{10,}|AIza[0-9A-Za-z\-_]{20,})"

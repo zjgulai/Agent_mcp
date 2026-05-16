@@ -26,6 +26,69 @@
     .prose-custom td { border-bottom: 1px solid #1f1f23; padding: 0.75rem; vertical-align: top; }
     .ascii { color: #d4d4d4; background: #0a0a0a; padding: 1.5rem; border-radius: 0.5rem; border: 1px solid #27272a; font-family: ui-monospace,SFMono-Regular,Menlo,monospace; white-space: pre; font-size: 0.85rem; line-height: 1.5; overflow-x: auto; }
   </style>
+
+  <script>
+    window.I18N_ZH = window.I18N_ZH || {};
+    window.I18N_ZH['architecture'] = {
+      'nav.getting-started':  '快速开始',
+      'nav.handbook':         '手册',
+      'nav.architecture':     '架构',
+      'nav.github':           'GitHub →',
+
+      'header.eyebrow':       '文档',
+      'header.title':         '架构',
+      'header.subtitle':      '一个注册表 · 四个适配器 · 环境变量驱动 · 锚点保证可逆。',
+
+      's-map.title':          '自顶向下',
+
+      's-why.title':           '为什么这样设计',
+      's-why.intro':           '每个 AI CLI 都有自己的 MCP 配置格式。没有注册表的话,你会:',
+      's-why.b1':              '把同一个 MCP 定义维护四遍;',
+      's-why.b2':              '客户端之间漂移(opencode 是 v2,kimi 还是 v1);',
+      's-why.b3':              'token 散落在不同文件中(安全灾难);',
+      's-why.b4':              '没有全局 doctor — 每个客户端只给局部反馈。',
+
+      's-secret.title':        'Secret 模型',
+      's-secret.intro':        '所有 MCP secret 走 shell 环境变量,不进任何文件:',
+      's-secret.outro':        '写客户端配置时,adapter 把 ${GITHUB_TOKEN} 写成字面插值指令(opencode/cursor),或者通过 kimi mcp add -e GITHUB_TOKEN=... 透传给 kimi(kimi 再注入到 MCP 子进程的 env)。token 真值永远不会落盘。',
+      's-secret.regex':        'Schema 验证含正则检查:任何 manifest 含字面 ghp_*、sk-[a-zA-Z0-9]{10,}、AIza[0-9A-Za-z_-]{20,} 都会在加载时被拒。',
+
+      's-opencode.title':      'opencode 适配器',
+      's-opencode.intro':      '合并到 ~/.config/opencode/opencode.json 的 mcp 对象:',
+
+      's-codex.title':         'codex 适配器',
+      's-codex.intro':         '把 TOML section 追加到 ~/.codex/config.toml:',
+      's-codex.outro':         '锚点存放在 ~/.codex/.agent-mcp-managed.json 里 — TOML 没有干净的注释附着语义。',
+
+      's-cursor.title':        'cursor 适配器',
+      's-cursor.intro':        '合并到 ~/.cursor/mcp.json 的 mcpServers:',
+
+      's-kimi.title':          'kimi 适配器',
+      's-kimi.intro':          'kimi 自带 mcp add 子命令。我们 shell out,让 kimi 自己管理文件格式:',
+      's-kimi.outro':          '锚点存在 ~/.kimi/.agent-mcp-managed.json 里,这样卸载时知道清哪些。',
+
+      's-backup.title':        '备份纪律',
+      's-backup.intro':        '每次写客户端配置文件:',
+      's-backup.b1':           'cp <target> <target>.bak.{YYYYMMDDTHHMMSS}',
+      's-backup.b2':           'prune_backups(keep=5) — 保留最近 5 份,旧的删掉。',
+      's-backup.outro':        '所以你慌了,可以 cp opencode.json.bak.20260516T... opencode.json 秒回退。',
+
+      's-uninstall.title':     '卸载协议',
+      's-uninstall.b1':        '检查 _managed_by 锚点(或 codex/kimi 的注册文件)。不是我们装的拒绝。',
+      's-uninstall.b2':        '备份当前配置。',
+      's-uninstall.b3':        '删条目。',
+      's-uninstall.b4':        '如果该 section 整个空了,清掉 section。',
+      's-uninstall.b5':        '再跑一次 prune_backups(keep=5)。',
+
+      's-tests.title':         '测试',
+      's-tests.b1-pre':        '28 个 schema 测试',
+      's-tests.b1':            ' — manifest 验证、明文 token 拒收、MCP 专属字段。',
+      's-tests.b2-pre':        '11 个 adapter 测试',
+      's-tests.b2':            ' — install / uninstall 往返、拒删非托管条目。',
+      's-tests.b3-pre':        '总计:39 个测试,全绿',
+      's-tests.b3':            '。',
+    };
+  </script>
 </head>
 <body>
 
@@ -36,10 +99,10 @@
       <span class="font-semibold tracking-tight text-zinc-200 group-hover:text-indigo-400 transition-colors">Agent_mcp</span>
     </a>
     <div class="hidden md:flex items-center gap-6">
-      <a href="./getting-started.html" class="text-zinc-400 hover:text-indigo-400 text-sm transition-colors">Getting Started</a>
-      <a href="./handbook.html" class="text-zinc-400 hover:text-indigo-400 text-sm transition-colors">Handbook</a>
-      <a href="./architecture.html" class="text-indigo-400 text-sm font-medium">Architecture</a>
-      <a href="https://github.com/zjgulai/Agent_mcp" target="_blank" rel="noopener" class="px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 rounded-md text-sm text-zinc-200 transition-colors">GitHub →</a>
+      <a href="./getting-started.html" class="text-zinc-400 hover:text-indigo-400 text-sm transition-colors" data-i18n="nav.getting-started">Getting Started</a>
+      <a href="./handbook.html" class="text-zinc-400 hover:text-indigo-400 text-sm transition-colors" data-i18n="nav.handbook">Handbook</a>
+      <a href="./architecture.html" class="text-indigo-400 text-sm font-medium" data-i18n="nav.architecture">Architecture</a>
+      <a href="https://github.com/zjgulai/Agent_mcp" target="_blank" rel="noopener" class="px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 rounded-md text-sm text-zinc-200 transition-colors" data-i18n="nav.github">GitHub →</a>
       <button id="lang-toggle" onclick="window.i18nToggle()" class="px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 rounded-md text-sm text-zinc-300 transition-colors border border-zinc-700" aria-label="Toggle language">中文</button>
     </div>
   </div>
@@ -47,11 +110,11 @@
 
 <main class="pt-16 max-w-4xl mx-auto px-6 py-12 prose-custom">
 
-  <p class="text-indigo-400 text-sm font-medium tracking-wider">DOCUMENTATION</p>
-  <h1 class="text-4xl md:text-5xl font-bold text-zinc-100 mb-4">Architecture</h1>
-  <p class="text-xl text-zinc-400 mb-12">One registry · four adapters · env-var-driven secrets · clean uninstall by anchor.</p>
+  <p class="text-indigo-400 text-sm font-medium tracking-wider" data-i18n="header.eyebrow">DOCUMENTATION</p>
+  <h1 class="text-4xl md:text-5xl font-bold text-zinc-100 mb-4" data-i18n="header.title">Architecture</h1>
+  <p class="text-xl text-zinc-400 mb-12" data-i18n="header.subtitle">One registry · four adapters · env-var-driven secrets · clean uninstall by anchor.</p>
 
-  <h2>Top-down map</h2>
+  <h2 data-i18n="s-map.title">Top-down map</h2>
   <pre class="ascii">┌─────────────────────────────────────────────────────────────────────┐
 │  Agent_mcp (this repo)                                              │
 │                                                                     │
@@ -76,26 +139,26 @@
   "mcp.&lt;name&gt;"      "[mcp_servers   "mcpServers.   kimi mcp     anchor record
                       .&lt;name&gt;]"      &lt;name&gt;"        list</pre>
 
-  <h2>Why this shape</h2>
-  <p>Each AI CLI has its own MCP config format. Without a registry, you'd:</p>
+  <h2 data-i18n="s-why.title">Why this shape</h2>
+  <p data-i18n="s-why.intro">Each AI CLI has its own MCP config format. Without a registry, you'd:</p>
   <ul>
-    <li>maintain the same MCP definition <strong>four times</strong>;</li>
-    <li>drift between clients (opencode has v2 of the package, kimi still has v1);</li>
-    <li>scatter tokens across files <strong>(security disaster)</strong>;</li>
-    <li>have no global doctor — each client gives partial feedback only.</li>
+    <li data-i18n-html="s-why.b1">maintain the same MCP definition <strong>four times</strong>;</li>
+    <li data-i18n="s-why.b2">drift between clients (opencode has v2 of the package, kimi still has v1);</li>
+    <li data-i18n-html="s-why.b3">scatter tokens across files <strong>(security disaster)</strong>;</li>
+    <li data-i18n="s-why.b4">have no global doctor — each client gives partial feedback only.</li>
   </ul>
 
-  <h2>Secret model</h2>
-  <p>All MCP secrets live in shell environment, never in files:</p>
+  <h2 data-i18n="s-secret.title">Secret model</h2>
+  <p data-i18n="s-secret.intro">All MCP secrets live in shell environment, never in files:</p>
 <pre class="cmd-block rounded p-4 mt-3"><code class="language-yaml"># In manifest.yaml — declares the ENV VAR NAMES, not values
 requires:
   binaries: [npx, node]
   env: [GITHUB_TOKEN]</code></pre>
-  <p>When writing client config, the adapter writes <code>${GITHUB_TOKEN}</code> as a literal interpolation directive (opencode/cursor) or passes <code>$GITHUB_TOKEN</code> through to <code>kimi mcp add -e GITHUB_TOKEN=...</code> (which kimi then forwards into the MCP child process env). The actual token is never persisted on disk.</p>
-  <p>The schema validator includes a regex check: any manifest containing literal <code>ghp_*</code>, <code>sk-[a-zA-Z0-9]{10,}</code>, or <code>AIza[0-9A-Za-z_-]{20,}</code> is rejected at load time.</p>
+  <p data-i18n-html="s-secret.outro">When writing client config, the adapter writes <code>${GITHUB_TOKEN}</code> as a literal interpolation directive (opencode/cursor) or passes <code>$GITHUB_TOKEN</code> through to <code>kimi mcp add -e GITHUB_TOKEN=...</code> (which kimi then forwards into the MCP child process env). The actual token is never persisted on disk.</p>
+  <p data-i18n-html="s-secret.regex">The schema validator includes a regex check: any manifest containing literal <code>ghp_*</code>, <code>sk-[a-zA-Z0-9]{10,}</code>, or <code>AIza[0-9A-Za-z_-]{20,}</code> is rejected at load time.</p>
 
-  <h2>The opencode adapter</h2>
-  <p>Merges into the <code>mcp</code> object in <code>~/.config/opencode/opencode.json</code>:</p>
+  <h2 data-i18n="s-opencode.title">The opencode adapter</h2>
+  <p data-i18n-html="s-opencode.intro">Merges into the <code>mcp</code> object in <code>~/.config/opencode/opencode.json</code>:</p>
 <pre class="cmd-block rounded p-4 mt-3"><code class="language-json">{
   "mcp": {
     "github": {
@@ -110,18 +173,18 @@ requires:
   }
 }</code></pre>
 
-  <h2>The codex adapter</h2>
-  <p>Appends a TOML section to <code>~/.codex/config.toml</code>:</p>
+  <h2 data-i18n="s-codex.title">The codex adapter</h2>
+  <p data-i18n-html="s-codex.intro">Appends a TOML section to <code>~/.codex/config.toml</code>:</p>
 <pre class="cmd-block rounded p-4 mt-3"><code class="language-toml">[mcp_servers.github]
 command = "npx"
 args = ["-y", "@modelcontextprotocol/server-github"]
 
 [mcp_servers.github.env]
 GITHUB_TOKEN = "${GITHUB_TOKEN}"</code></pre>
-  <p>Anchor is tracked in <code>~/.codex/.agent-mcp-managed.json</code> since TOML doesn't have a clean comment-attachment story.</p>
+  <p data-i18n-html="s-codex.outro">Anchor is tracked in <code>~/.codex/.agent-mcp-managed.json</code> since TOML doesn't have a clean comment-attachment story.</p>
 
-  <h2>The cursor adapter</h2>
-  <p>Merges into <code>mcpServers</code> in <code>~/.cursor/mcp.json</code>:</p>
+  <h2 data-i18n="s-cursor.title">The cursor adapter</h2>
+  <p data-i18n-html="s-cursor.intro">Merges into <code>mcpServers</code> in <code>~/.cursor/mcp.json</code>:</p>
 <pre class="cmd-block rounded p-4 mt-3"><code class="language-json">{
   "mcpServers": {
     "github": {
@@ -133,36 +196,36 @@ GITHUB_TOKEN = "${GITHUB_TOKEN}"</code></pre>
   }
 }</code></pre>
 
-  <h2>The kimi adapter</h2>
-  <p>kimi has a native subcommand. We shell out and let kimi own the file format:</p>
+  <h2 data-i18n="s-kimi.title">The kimi adapter</h2>
+  <p data-i18n="s-kimi.intro">kimi has a native subcommand. We shell out and let kimi own the file format:</p>
 <pre class="cmd-block rounded p-4 mt-3"><code class="language-bash">kimi mcp add github \
   --transport stdio \
   -e GITHUB_TOKEN="$GITHUB_TOKEN" \
   -- npx -y @modelcontextprotocol/server-github</code></pre>
-  <p>Our anchor lives in <code>~/.kimi/.agent-mcp-managed.json</code> so we know which entries to clean up on uninstall.</p>
+  <p data-i18n-html="s-kimi.outro">Our anchor lives in <code>~/.kimi/.agent-mcp-managed.json</code> so we know which entries to clean up on uninstall.</p>
 
-  <h2>Backup discipline</h2>
-  <p>Every write to a client config file:</p>
+  <h2 data-i18n="s-backup.title">Backup discipline</h2>
+  <p data-i18n="s-backup.intro">Every write to a client config file:</p>
   <ol>
-    <li><code>cp &lt;target&gt; &lt;target&gt;.bak.{YYYYMMDDTHHMMSS}</code></li>
-    <li><code>prune_backups(keep=5)</code> — keep the 5 most recent backups, delete older.</li>
+    <li data-i18n-html="s-backup.b1"><code>cp &lt;target&gt; &lt;target&gt;.bak.{YYYYMMDDTHHMMSS}</code></li>
+    <li data-i18n-html="s-backup.b2"><code>prune_backups(keep=5)</code> — keep the 5 most recent backups, delete older.</li>
   </ol>
-  <p>So if you panic, you can <code>cp opencode.json.bak.20260516T... opencode.json</code> in seconds.</p>
+  <p data-i18n-html="s-backup.outro">So if you panic, you can <code>cp opencode.json.bak.20260516T... opencode.json</code> in seconds.</p>
 
-  <h2>Uninstall protocol</h2>
+  <h2 data-i18n="s-uninstall.title">Uninstall protocol</h2>
   <ol>
-    <li>Check the <code>_managed_by</code> anchor (or registry file for codex/kimi). Refuse if not ours.</li>
-    <li>Backup the current config.</li>
-    <li>Remove the entry.</li>
-    <li>If the resulting config is "empty in this section", clean up the section too.</li>
-    <li>Run <code>prune_backups(keep=5)</code> again.</li>
+    <li data-i18n-html="s-uninstall.b1">Check the <code>_managed_by</code> anchor (or registry file for codex/kimi). Refuse if not ours.</li>
+    <li data-i18n="s-uninstall.b2">Backup the current config.</li>
+    <li data-i18n="s-uninstall.b3">Remove the entry.</li>
+    <li data-i18n="s-uninstall.b4">If the resulting config is "empty in this section", clean up the section too.</li>
+    <li data-i18n-html="s-uninstall.b5">Run <code>prune_backups(keep=5)</code> again.</li>
   </ol>
 
-  <h2>Tests</h2>
+  <h2 data-i18n="s-tests.title">Tests</h2>
   <ul>
-    <li><strong class="text-zinc-200">28 schema tests</strong> — manifest validation, secret-literal rejection, MCP-specific fields.</li>
-    <li><strong class="text-zinc-200">11 adapter tests</strong> — install / uninstall round-trip, refusal to delete unmanaged entries.</li>
-    <li><strong class="text-zinc-200">Total: 39 tests, all green</strong>.</li>
+    <li><strong class="text-zinc-200" data-i18n="s-tests.b1-pre">28 schema tests</strong><span data-i18n="s-tests.b1"> — manifest validation, secret-literal rejection, MCP-specific fields.</span></li>
+    <li><strong class="text-zinc-200" data-i18n="s-tests.b2-pre">11 adapter tests</strong><span data-i18n="s-tests.b2"> — install / uninstall round-trip, refusal to delete unmanaged entries.</span></li>
+    <li><strong class="text-zinc-200" data-i18n="s-tests.b3-pre">Total: 39 tests, all green</strong><span data-i18n="s-tests.b3">.</span></li>
   </ul>
 
 </main>
