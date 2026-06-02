@@ -1,0 +1,38 @@
+kind: mcp
+name: aws
+version: 0.1.0
+description: AWS MCP server — S3, EC2, Lambda, CloudWatch, and IAM management via AWS APIs. Use whenever the agent needs to check infrastructure status, manage cloud resources, read CloudWatch logs, deploy Lambda functions, or inspect S3 buckets.
+domain: ops
+priority: P1
+
+compatibility:
+  opencode: native
+  codex: native
+  cursor: native
+  kimi: native
+
+source:
+  type: pypi
+  package: awslabs.amazon-bedrock-mcp-server
+
+mcp_command:
+  - uvx
+  - "awslabs.amazon-bedrock-mcp-server@latest"
+
+requires:
+  binaries: [uvx]
+  env: [AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION]
+
+triggers:
+  - aws
+  - amazon
+  - S3
+  - EC2
+  - Lambda
+  - CloudWatch
+  - IAM
+  - cloud infrastructure
+
+links:
+  upstream: https://github.com/awslabs/mcp
+  docs: https://docs.aws.amazon.com

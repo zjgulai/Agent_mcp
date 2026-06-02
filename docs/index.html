@@ -37,7 +37,7 @@
       'nav.handbook':              '手册',
       'nav.architecture':          '架构',
       'nav.github':                'GitHub →',
-      'hero.badge':                'v0.1 · 10 MCPs · 4 clients · 39 tests green',
+      'hero.badge':                'v0.1 · 30 MCPs · 4 clients · 39 tests green',
       'hero.title':                '给 AI 接上<br><span class="text-indigo-400">真实工具</span>。',
       'hero.subtitle':             'Agent_mcp 是 4 个 AI CLI（opencode / codex / cursor / kimi）共用的 MCP 注册中心。<span class="text-zinc-200">一份 manifest 装到四处</span>—— GitHub、Filesystem、Playwright、Postgres、Sentry、Context7、Sequential-thinking ⋯⋯ 一条 install 命令同时写入 opencode.json + codex config.toml + cursor mcp.json + kimi mcp add。',
       'hero.cta-start':            '快速开始 →',
@@ -47,8 +47,8 @@
       'demo.title':                'agent-mcp install github --client all',
       'demo.desc':                 '注册表里 <code class="text-indigo-400">registry/github/manifest.yaml</code> 是真相源。adapter 把它翻译为 opencode 的 <code class="text-indigo-400">mcp</code> 段、codex 的 <code class="text-indigo-400">[mcp_servers.github]</code>、cursor 的 <code class="text-indigo-400">mcpServers.github</code>、kimi 的 <code class="text-indigo-400">kimi mcp add</code>。每次写客户端配置前都带时间戳备份。',
       'demo.cta':                  '查看完整手册 →',
-      'cmds.eyebrow':              '10 个 MCP',
-      'cmds.title':                'GitHub / Filesystem / Playwright / Postgres / Sentry ...',
+      'cmds.eyebrow':              '30 MCPS',
+      'cmds.title':                'GitHub / Filesystem / Playwright / Postgres / Fetch / Memory / Brave Search ...',
       'cmds.cta':                  '完整 MCP 参考 →',
       'cmds.github-desc':          '读 issue / 写 PR / 查 CI 失败 / 搜代码 — github.com 全链路。',
       'cmds.filesystem-desc':      '白名单目录的文件 IO — 跨工具批处理稳。',
@@ -103,7 +103,7 @@
     <div class="max-w-3xl">
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-medium mb-6">
         <span class="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse"></span>
-        <span data-i18n="hero.badge">v0.1 · 10 MCPs · 4 clients · 39 tests green</span>
+        <span data-i18n="hero.badge">v0.1 · 30 MCPs · 4 clients · 39 tests green</span>
       </div>
 
       <h1 class="text-5xl md:text-7xl font-bold tracking-tight text-zinc-100 mb-6" data-i18n-html="hero.title">
@@ -171,8 +171,8 @@
 
 <section class="border-t border-zinc-900 bg-zinc-950">
   <div class="max-w-6xl mx-auto px-6 py-20">
-    <p class="text-indigo-400 text-sm font-medium mb-2 tracking-wider" data-i18n="cmds.eyebrow">10 MCPS</p>
-    <h2 class="text-3xl font-bold mb-12 text-zinc-100" data-i18n="cmds.title">GitHub · Filesystem · Playwright · Postgres · Sentry ...</h2>
+    <p class="text-indigo-400 text-sm font-medium mb-2 tracking-wider" data-i18n="cmds.eyebrow">30 MCPS</p>
+    <h2 class="text-3xl font-bold mb-12 text-zinc-100" data-i18n="cmds.title">GitHub · Filesystem · Playwright · Postgres · Fetch · Memory · Brave Search ...</h2>
 
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
       <div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-indigo-500/30 transition-colors">
@@ -214,6 +214,92 @@
       <div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-indigo-500/30 transition-colors">
         <code class="text-indigo-400 font-mono text-sm">linear</code>
         <p class="text-zinc-400 text-sm mt-2" data-i18n="cmds.linear-desc">Read tickets, generate plans, write back status.</p>
+      </div>
+
+      <!-- P0 additions -->
+      <div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-indigo-500/30 transition-colors">
+        <code class="text-indigo-400 font-mono text-sm">fetch</code>
+        <p class="text-zinc-400 text-sm mt-2">Fetch any URL → clean Markdown. No browser needed for static pages.</p>
+      </div>
+      <div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-indigo-500/30 transition-colors">
+        <code class="text-indigo-400 font-mono text-sm">memory</code>
+        <p class="text-zinc-400 text-sm mt-2">Knowledge-graph persistent memory — remember facts across sessions.</p>
+      </div>
+      <div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-indigo-500/30 transition-colors">
+        <code class="text-indigo-400 font-mono text-sm">brave-search</code>
+        <p class="text-zinc-400 text-sm mt-2">Web search via Brave's independent index — no ad-rank bias.</p>
+      </div>
+
+      <!-- P1 additions -->
+      <div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-indigo-500/30 transition-colors">
+        <code class="text-indigo-400 font-mono text-sm">cloudflare</code>
+        <p class="text-zinc-400 text-sm mt-2">Workers, KV, R2, D1, DNS management via Cloudflare API.</p>
+      </div>
+      <div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-indigo-500/30 transition-colors">
+        <code class="text-indigo-400 font-mono text-sm">supabase</code>
+        <p class="text-zinc-400 text-sm mt-2">Postgres + auth + storage + edge functions — full Supabase stack.</p>
+      </div>
+      <div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-indigo-500/30 transition-colors">
+        <code class="text-indigo-400 font-mono text-sm">slack</code>
+        <p class="text-zinc-400 text-sm mt-2">Send messages, read channels, post notifications to Slack.</p>
+      </div>
+      <div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-indigo-500/30 transition-colors">
+        <code class="text-indigo-400 font-mono text-sm">redis</code>
+        <p class="text-zinc-400 text-sm mt-2">Read and write Redis keys — inspect cache, debug session store.</p>
+      </div>
+      <div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-indigo-500/30 transition-colors">
+        <code class="text-indigo-400 font-mono text-sm">sqlite</code>
+        <p class="text-zinc-400 text-sm mt-2">Query local SQLite files — schema inspection and SQL execution.</p>
+      </div>
+      <div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-indigo-500/30 transition-colors">
+        <code class="text-indigo-400 font-mono text-sm">e2b</code>
+        <p class="text-zinc-400 text-sm mt-2">Secure cloud sandbox — run untrusted code in isolated containers.</p>
+      </div>
+      <div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-indigo-500/30 transition-colors">
+        <code class="text-indigo-400 font-mono text-sm">docker</code>
+        <p class="text-zinc-400 text-sm mt-2">List containers, manage images, read logs, control compose stacks.</p>
+      </div>
+      <div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-indigo-500/30 transition-colors">
+        <code class="text-indigo-400 font-mono text-sm">stripe</code>
+        <p class="text-zinc-400 text-sm mt-2">Customer lookup, billing, subscriptions, invoice management.</p>
+      </div>
+      <div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-indigo-500/30 transition-colors">
+        <code class="text-indigo-400 font-mono text-sm">aws</code>
+        <p class="text-zinc-400 text-sm mt-2">S3, EC2, Lambda, CloudWatch, IAM — AWS infrastructure access.</p>
+      </div>
+
+      <!-- P2 additions -->
+      <div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-indigo-500/30 transition-colors">
+        <code class="text-indigo-400 font-mono text-sm">puppeteer</code>
+        <p class="text-zinc-400 text-sm mt-2">Headless Chrome automation — screenshots, PDF, scraping.</p>
+      </div>
+      <div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-indigo-500/30 transition-colors">
+        <code class="text-indigo-400 font-mono text-sm">gitlab</code>
+        <p class="text-zinc-400 text-sm mt-2">Merge requests, pipelines, issues — full GitLab API.</p>
+      </div>
+      <div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-indigo-500/30 transition-colors">
+        <code class="text-indigo-400 font-mono text-sm">notion</code>
+        <p class="text-zinc-400 text-sm mt-2">Read and write Notion pages, databases, and blocks.</p>
+      </div>
+      <div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-indigo-500/30 transition-colors">
+        <code class="text-indigo-400 font-mono text-sm">time</code>
+        <p class="text-zinc-400 text-sm mt-2">Current time and timezone conversion — lightweight, zero-config.</p>
+      </div>
+      <div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-indigo-500/30 transition-colors">
+        <code class="text-indigo-400 font-mono text-sm">google-drive</code>
+        <p class="text-zinc-400 text-sm mt-2">Search and access Google Drive files, Docs, and Sheets.</p>
+      </div>
+      <div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-indigo-500/30 transition-colors">
+        <code class="text-indigo-400 font-mono text-sm">vercel</code>
+        <p class="text-zinc-400 text-sm mt-2">Deployment status, build logs, env var management via Vercel API.</p>
+      </div>
+      <div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-indigo-500/30 transition-colors">
+        <code class="text-indigo-400 font-mono text-sm">perplexity</code>
+        <p class="text-zinc-400 text-sm mt-2">Citation-backed deep research — answers with verifiable sources.</p>
+      </div>
+      <div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-indigo-500/30 transition-colors">
+        <code class="text-indigo-400 font-mono text-sm">kubernetes</code>
+        <p class="text-zinc-400 text-sm mt-2">Pod inspection, deployment management, cluster ops via kubectl.</p>
       </div>
     </div>
 

@@ -1,0 +1,36 @@
+kind: mcp
+name: redis
+version: 0.1.0
+description: Redis MCP server — interact with Redis key-value stores for reading, writing, and managing cache data. Use whenever the agent needs to inspect cache state, debug Redis keys, set values, or analyze data stored in a Redis instance.
+domain: data
+priority: P1
+
+compatibility:
+  opencode: native
+  codex: native
+  cursor: native
+  kimi: native
+
+source:
+  type: pypi
+  package: mcp-server-redis
+
+mcp_command:
+  - uvx
+  - mcp-server-redis
+
+requires:
+  binaries: [uvx]
+  env: [REDIS_URL]
+
+triggers:
+  - redis
+  - cache
+  - key-value
+  - redis keys
+  - pub/sub
+  - session store
+
+links:
+  upstream: https://github.com/modelcontextprotocol/servers-archived/tree/main/src/redis
+  docs: https://redis.io/docs

@@ -1,0 +1,36 @@
+kind: mcp
+name: gitlab
+version: 0.1.0
+description: GitLab MCP server — project management, merge request operations, issue tracking, CI/CD pipeline inspection, and repository access via the GitLab API. Use whenever working with GitLab-hosted repositories, MRs, or pipelines instead of GitHub.
+domain: ops
+priority: P2
+
+compatibility:
+  opencode: native
+  codex: native
+  cursor: native
+  kimi: native
+
+source:
+  type: pypi
+  package: mcp-server-gitlab
+
+mcp_command:
+  - uvx
+  - mcp-server-gitlab
+
+requires:
+  binaries: [uvx]
+  env: [GITLAB_PERSONAL_ACCESS_TOKEN, GITLAB_URL]
+
+triggers:
+  - gitlab
+  - merge request
+  - MR
+  - gitlab pipeline
+  - gitlab CI
+  - gitlab issue
+
+links:
+  upstream: https://github.com/modelcontextprotocol/servers-archived/tree/main/src/gitlab
+  docs: https://docs.gitlab.com/api/rest/

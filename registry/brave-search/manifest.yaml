@@ -1,0 +1,37 @@
+kind: mcp
+name: brave-search
+version: 0.1.0
+description: Brave Search MCP server — web and local search using Brave's independent search index with no ad-rank bias. Use whenever the agent needs to search the web, find current information, or do local business searches without Google dependency.
+domain: research
+priority: P0
+
+compatibility:
+  opencode: native
+  codex: native
+  cursor: native
+  kimi: native
+
+source:
+  type: npm
+  package: "@modelcontextprotocol/server-brave-search"
+
+mcp_command:
+  - npx
+  - "-y"
+  - "@modelcontextprotocol/server-brave-search"
+
+requires:
+  binaries: [npx, node]
+  env: [BRAVE_API_KEY]
+
+triggers:
+  - search
+  - web search
+  - brave
+  - find information
+  - current events
+  - news
+
+links:
+  upstream: https://github.com/brave/brave-search-mcp-server
+  docs: https://api.search.brave.com/app/documentation/web-search

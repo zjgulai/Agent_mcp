@@ -1,0 +1,36 @@
+kind: mcp
+name: puppeteer
+version: 0.1.0
+description: Puppeteer MCP server — headless browser automation and web scraping using Chrome. Use when Playwright is unavailable or when legacy Chrome-specific automation is needed for screenshots, PDF generation, or JavaScript-heavy page scraping.
+domain: frontend
+priority: P2
+
+compatibility:
+  opencode: native
+  codex: native
+  cursor: native
+  kimi: native
+
+source:
+  type: npm
+  package: "@modelcontextprotocol/server-puppeteer"
+
+mcp_command:
+  - npx
+  - "-y"
+  - "@modelcontextprotocol/server-puppeteer"
+
+requires:
+  binaries: [npx, node]
+
+triggers:
+  - puppeteer
+  - headless browser
+  - chrome automation
+  - screenshot
+  - PDF
+  - web scraping
+
+links:
+  upstream: https://github.com/modelcontextprotocol/servers-archived/tree/main/src/puppeteer
+  docs: https://pptr.dev

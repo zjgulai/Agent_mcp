@@ -1,0 +1,37 @@
+kind: mcp
+name: sqlite
+version: 0.1.0
+description: SQLite MCP server — database interaction and business intelligence for local SQLite files including schema inspection, query execution, and data analysis. Use whenever the agent needs to query a local SQLite database, inspect schema, or run ad-hoc SQL against embedded data.
+domain: data
+priority: P1
+
+compatibility:
+  opencode: native
+  codex: native
+  cursor: native
+  kimi: native
+
+source:
+  type: pypi
+  package: mcp-server-sqlite
+
+mcp_command:
+  - uvx
+  - mcp-server-sqlite
+  - "--db-path"
+  - "${SQLITE_DB_PATH}"
+
+requires:
+  binaries: [uvx]
+  env: [SQLITE_DB_PATH]
+
+triggers:
+  - sqlite
+  - local database
+  - sqlite file
+  - embedded database
+  - sql lite
+
+links:
+  upstream: https://github.com/modelcontextprotocol/servers-archived/tree/main/src/sqlite
+  docs: https://www.sqlite.org/docs.html

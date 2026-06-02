@@ -1,0 +1,36 @@
+kind: mcp
+name: memory
+version: 0.1.0
+description: Memory MCP server — knowledge-graph-based persistent memory system that lets the agent store, retrieve, and reason over facts across sessions. Use whenever the agent needs to remember context between conversations, track entities, or build a local knowledge base.
+domain: general
+priority: P0
+
+compatibility:
+  opencode: native
+  codex: native
+  cursor: native
+  kimi: native
+
+source:
+  type: npm
+  package: "@modelcontextprotocol/server-memory"
+
+mcp_command:
+  - npx
+  - "-y"
+  - "@modelcontextprotocol/server-memory"
+
+requires:
+  binaries: [npx, node]
+
+triggers:
+  - memory
+  - remember
+  - knowledge graph
+  - persistent context
+  - recall
+  - store facts
+
+links:
+  upstream: https://github.com/modelcontextprotocol/servers/tree/main/src/memory
+  docs: https://glama.ai/mcp/servers/modelcontextprotocol/memory

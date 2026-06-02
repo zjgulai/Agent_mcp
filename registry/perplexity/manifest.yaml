@@ -1,0 +1,37 @@
+kind: mcp
+name: perplexity
+version: 0.1.0
+description: Perplexity MCP server — citation-backed deep web research and multi-source synthesis via the Perplexity AI API. Use whenever the agent needs authoritative research with source citations, competitive analysis, or real-time fact-checking with verifiable references.
+domain: research
+priority: P2
+
+compatibility:
+  opencode: native
+  codex: native
+  cursor: native
+  kimi: native
+
+source:
+  type: npm
+  package: "perplexity-mcp"
+
+mcp_command:
+  - npx
+  - "-y"
+  - "perplexity-mcp"
+
+requires:
+  binaries: [npx, node]
+  env: [PERPLEXITY_API_KEY]
+
+triggers:
+  - perplexity
+  - research
+  - citations
+  - fact check
+  - sourced search
+  - deep research
+
+links:
+  upstream: https://github.com/perplexity-ai/perplexity-mcp
+  docs: https://docs.perplexity.ai

@@ -1,0 +1,37 @@
+kind: mcp
+name: kubernetes
+version: 0.1.0
+description: Kubernetes MCP server — cluster operations including pod inspection, deployment management, log retrieval, and resource status via kubectl-compatible APIs. Use whenever the agent needs to inspect k8s workloads, debug failing pods, scale deployments, or query cluster state.
+domain: ops
+priority: P2
+
+compatibility:
+  opencode: native
+  codex: native
+  cursor: native
+  kimi: native
+
+source:
+  type: pypi
+  package: mcp-server-kubernetes
+
+mcp_command:
+  - uvx
+  - mcp-server-kubernetes
+
+requires:
+  binaries: [uvx, kubectl]
+  env: [KUBECONFIG]
+
+triggers:
+  - kubernetes
+  - k8s
+  - pod
+  - deployment
+  - kubectl
+  - cluster
+  - namespace
+
+links:
+  upstream: https://github.com/Flux159/mcp-server-kubernetes
+  docs: https://kubernetes.io/docs

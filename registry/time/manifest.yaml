@@ -1,0 +1,36 @@
+kind: mcp
+name: time
+version: 0.1.0
+description: Time MCP server — current time retrieval and timezone conversion capabilities. Use whenever the agent needs to know the current time in a specific timezone, convert between timezones, or calculate time differences for scheduling or logging.
+domain: general
+priority: P2
+
+compatibility:
+  opencode: native
+  codex: native
+  cursor: native
+  kimi: native
+
+source:
+  type: npm
+  package: "@modelcontextprotocol/server-time"
+
+mcp_command:
+  - npx
+  - "-y"
+  - "@modelcontextprotocol/server-time"
+
+requires:
+  binaries: [npx, node]
+
+triggers:
+  - time
+  - timezone
+  - current time
+  - convert timezone
+  - UTC
+  - timestamp
+
+links:
+  upstream: https://github.com/modelcontextprotocol/servers/tree/main/src/time
+  docs: https://modelcontextprotocol.io

@@ -1,0 +1,37 @@
+kind: mcp
+name: fetch
+version: 0.1.0
+description: Fetch MCP server — fetches any URL and converts HTML to clean Markdown for LLM consumption. Use whenever the agent needs to read a web page, retrieve API docs, or extract content from a URL without spawning a full browser.
+domain: research
+priority: P0
+
+compatibility:
+  opencode: native
+  codex: native
+  cursor: native
+  kimi: native
+
+source:
+  type: npm
+  package: "@modelcontextprotocol/server-fetch"
+
+mcp_command:
+  - npx
+  - "-y"
+  - "@modelcontextprotocol/server-fetch"
+
+requires:
+  binaries: [npx, node]
+
+triggers:
+  - fetch
+  - web page
+  - url
+  - http
+  - scrape
+  - markdown from url
+  - read website
+
+links:
+  upstream: https://github.com/modelcontextprotocol/servers/tree/main/src/fetch
+  docs: https://glama.ai/mcp/servers/modelcontextprotocol/fetch

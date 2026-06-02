@@ -1,0 +1,38 @@
+kind: mcp
+name: stripe
+version: 0.1.0
+description: Stripe MCP server — customer lookup, payment intents, subscriptions, invoices, and dispute management via the Stripe API. Use whenever the agent needs to check billing status, search customers, create payment links, or investigate failed charges.
+domain: general
+priority: P1
+
+compatibility:
+  opencode: native
+  codex: native
+  cursor: native
+  kimi: native
+
+source:
+  type: npm
+  package: "@stripe/mcp-server"
+
+mcp_command:
+  - npx
+  - "-y"
+  - "@stripe/mcp-server"
+
+requires:
+  binaries: [npx, node]
+  env: [STRIPE_API_KEY]
+
+triggers:
+  - stripe
+  - payment
+  - billing
+  - subscription
+  - invoice
+  - customer
+  - charge
+
+links:
+  upstream: https://github.com/stripe/agent-toolkit
+  docs: https://stripe.com/docs/api

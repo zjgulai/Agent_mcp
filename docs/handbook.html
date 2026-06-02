@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Handbook · Agent_mcp</title>
-  <meta name="description" content="Full Agent_mcp reference: 10 MCPs × 4 client adapters × manifest schema × env model.">
+  <meta name="description" content="Full Agent_mcp reference: 30 MCPs × 4 client adapters × manifest schema × env model.">
   <link rel="alternate" hreflang="en" href="https://zjgulai.github.io/Agent_mcp/handbook.html">
   <link rel="alternate" hreflang="x-default" href="https://zjgulai.github.io/Agent_mcp/handbook.html">
   <script src="https://cdn.tailwindcss.com"></script>
@@ -34,6 +34,7 @@
     .badge { display: inline-block; font-size: 0.75rem; padding: 2px 10px; border-radius: 10px; font-weight: 500; }
     .badge.p0 { background: rgba(239,68,68,0.15); color: #ef4444; }
     .badge.p1 { background: rgba(245,158,11,0.15); color: #f59e0b; }
+    .badge.p2 { background: rgba(63,131,248,0.15); color: #60a5fa; }
     .badge.env { background: rgba(168,85,247,0.15); color: #c084fc; font-family: ui-monospace,SFMono-Regular,Menlo,monospace; }
     .badge.bin { background: rgba(99,102,241,0.15); color: #818cf8; font-family: ui-monospace,SFMono-Regular,Menlo,monospace; }
   </style>
@@ -142,7 +143,7 @@
     <strong class="text-zinc-200" data-i18n="toc.title">Contents</strong>
     <ul>
       <li><a href="#overview" data-i18n="toc.s1">§1 Overview</a></li>
-      <li><a href="#mcps" data-i18n="toc.s2">§2 The 10 MCPs</a></li>
+      <li><a href="#mcps" data-i18n="toc.s2">§2 The 30 MCPs</a></li>
       <li><a href="#matrix" data-i18n="toc.s3">§3 Compatibility Matrix</a></li>
       <li><a href="#commands" data-i18n="toc.s4">§4 CLI Commands</a></li>
       <li><a href="#manifest" data-i18n="toc.s5">§5 Manifest Schema</a></li>
@@ -156,12 +157,12 @@
     <ul>
       <li><a href="https://github.com/zjgulai/Agent_skills" data-i18n="s1.b1-pre">Agent_skills</a><span data-i18n="s1.b1"> — methodology: how the agent thinks (16 skills)</span></li>
       <li><a href="https://github.com/zjgulai/Agent_hook" data-i18n="s1.b2-pre">Agent_hook</a><span data-i18n="s1.b2"> — enforcement: what must happen (9 hooks)</span></li>
-      <li><strong class="text-zinc-200" data-i18n="s1.b3-pre">Agent_mcp</strong><span data-i18n="s1.b3"> — context: what the agent can touch (10 MCPs)</span></li>
+      <li><strong class="text-zinc-200" data-i18n="s1.b3-pre">Agent_mcp</strong><span data-i18n="s1.b3"> — context: what the agent can touch (30 MCPs)</span></li>
     </ul>
   </section>
 
   <section id="mcps">
-    <h2 data-i18n="s2.title">§2 The 10 MCPs</h2>
+    <h2 data-i18n="s2.title">§2 The 30 MCPs</h2>
 
     <div class="mcp-card">
       <h3>github</h3>
@@ -236,11 +237,151 @@
       <p data-i18n="s2.linear-text">Read tickets, write status, surface assigned work. Connects "ticket → plan → completed" in one tool.</p>
       <p><code class="text-indigo-400">npx -y @linear/mcp-server</code></p>
     </div>
+
+    <div class="mcp-card">
+      <h3>fetch</h3>
+      <div class="badge-row"><span class="badge p0">P0</span><span class="badge bin">npx · node</span></div>
+      <p>Fetch any URL and convert HTML to clean Markdown for LLM consumption. No browser overhead for static pages.</p>
+      <p><code class="text-indigo-400">npx -y @modelcontextprotocol/server-fetch</code></p>
+    </div>
+
+    <div class="mcp-card">
+      <h3>memory</h3>
+      <div class="badge-row"><span class="badge p0">P0</span><span class="badge bin">npx · node</span></div>
+      <p>Knowledge-graph-based persistent memory. Store and recall facts across sessions — entities, relationships, observations.</p>
+      <p><code class="text-indigo-400">npx -y @modelcontextprotocol/server-memory</code></p>
+    </div>
+
+    <div class="mcp-card">
+      <h3>brave-search</h3>
+      <div class="badge-row"><span class="badge p0">P0</span><span class="badge env">BRAVE_API_KEY</span><span class="badge bin">npx · node</span></div>
+      <p>Web and local search via Brave's independent index — no Google dependency, no ad-rank bias. v2.x: 7 focused tools.</p>
+      <p><code class="text-indigo-400">npx -y @modelcontextprotocol/server-brave-search</code></p>
+    </div>
+
+    <div class="mcp-card">
+      <h3>cloudflare</h3>
+      <div class="badge-row"><span class="badge p1">P1</span><span class="badge env">CLOUDFLARE_API_TOKEN</span><span class="badge bin">npx · node</span></div>
+      <p>Manage Cloudflare Workers, KV, R2 object storage, D1 databases, DNS records, and CDN settings.</p>
+      <p><code class="text-indigo-400">npx -y @cloudflare/mcp-server-cloudflare</code></p>
+    </div>
+
+    <div class="mcp-card">
+      <h3>supabase</h3>
+      <div class="badge-row"><span class="badge p1">P1</span><span class="badge env">SUPABASE_URL · SUPABASE_SERVICE_ROLE_KEY</span><span class="badge bin">npx · node</span></div>
+      <p>Full Supabase backend access: Postgres queries, auth user management, storage operations, edge function deployment.</p>
+      <p><code class="text-indigo-400">npx -y @supabase/mcp-server-supabase</code></p>
+    </div>
+
+    <div class="mcp-card">
+      <h3>slack</h3>
+      <div class="badge-row"><span class="badge p1">P1</span><span class="badge env">SLACK_BOT_TOKEN · SLACK_TEAM_ID</span><span class="badge bin">npx · node</span></div>
+      <p>Send messages, read channel history, post notifications, and manage Slack workspaces via the Slack API.</p>
+      <p><code class="text-indigo-400">npx -y @zencoderai/slack-mcp-server</code></p>
+    </div>
+
+    <div class="mcp-card">
+      <h3>redis</h3>
+      <div class="badge-row"><span class="badge p1">P1</span><span class="badge env">REDIS_URL</span><span class="badge bin">uvx</span></div>
+      <p>Read, write, and manage Redis key-value store. Inspect cache state, debug sessions, explore data structures.</p>
+      <p><code class="text-indigo-400">uvx mcp-server-redis</code></p>
+    </div>
+
+    <div class="mcp-card">
+      <h3>sqlite</h3>
+      <div class="badge-row"><span class="badge p1">P1</span><span class="badge env">SQLITE_DB_PATH</span><span class="badge bin">uvx</span></div>
+      <p>Query local SQLite databases — schema inspection, SQL execution, data analysis on embedded files.</p>
+      <p><code class="text-indigo-400">uvx mcp-server-sqlite --db-path $SQLITE_DB_PATH</code></p>
+    </div>
+
+    <div class="mcp-card">
+      <h3>e2b</h3>
+      <div class="badge-row"><span class="badge p1">P1</span><span class="badge env">E2B_API_KEY</span><span class="badge bin">npx · node</span></div>
+      <p>Run arbitrary code in secure cloud sandboxes. Safe execution of untrusted scripts in isolated containers.</p>
+      <p><code class="text-indigo-400">npx -y @e2b/mcp-server</code></p>
+    </div>
+
+    <div class="mcp-card">
+      <h3>docker</h3>
+      <div class="badge-row"><span class="badge p1">P1</span><span class="badge bin">uvx · docker</span></div>
+      <p>List containers, manage images, start/stop services, read logs, and orchestrate compose stacks.</p>
+      <p><code class="text-indigo-400">uvx mcp-server-docker</code></p>
+    </div>
+
+    <div class="mcp-card">
+      <h3>stripe</h3>
+      <div class="badge-row"><span class="badge p1">P1</span><span class="badge env">STRIPE_API_KEY</span><span class="badge bin">npx · node</span></div>
+      <p>Customer lookup, payment intents, subscriptions, invoices, and dispute management via the Stripe API.</p>
+      <p><code class="text-indigo-400">npx -y @stripe/mcp-server</code></p>
+    </div>
+
+    <div class="mcp-card">
+      <h3>aws</h3>
+      <div class="badge-row"><span class="badge p1">P1</span><span class="badge env">AWS_ACCESS_KEY_ID · AWS_SECRET_ACCESS_KEY · AWS_REGION</span><span class="badge bin">uvx</span></div>
+      <p>S3, EC2, Lambda, CloudWatch, and IAM management. Infrastructure status, logs, and resource operations.</p>
+      <p><code class="text-indigo-400">uvx awslabs.amazon-bedrock-mcp-server@latest</code></p>
+    </div>
+
+    <div class="mcp-card">
+      <h3>puppeteer</h3>
+      <div class="badge-row"><span class="badge p2">P2</span><span class="badge bin">npx · node</span></div>
+      <p>Headless Chrome automation — screenshots, PDF generation, JavaScript-heavy page scraping.</p>
+      <p><code class="text-indigo-400">npx -y @modelcontextprotocol/server-puppeteer</code></p>
+    </div>
+
+    <div class="mcp-card">
+      <h3>gitlab</h3>
+      <div class="badge-row"><span class="badge p2">P2</span><span class="badge env">GITLAB_PERSONAL_ACCESS_TOKEN · GITLAB_URL</span><span class="badge bin">uvx</span></div>
+      <p>Merge requests, CI/CD pipeline inspection, issue tracking, and repository access via the GitLab API.</p>
+      <p><code class="text-indigo-400">uvx mcp-server-gitlab</code></p>
+    </div>
+
+    <div class="mcp-card">
+      <h3>notion</h3>
+      <div class="badge-row"><span class="badge p2">P2</span><span class="badge env">NOTION_API_KEY</span><span class="badge bin">npx · node</span></div>
+      <p>Read and write Notion pages, databases, and blocks. AI-driven interaction with team wikis and knowledge bases.</p>
+      <p><code class="text-indigo-400">npx -y @notionhq/notion-mcp-server</code></p>
+    </div>
+
+    <div class="mcp-card">
+      <h3>time</h3>
+      <div class="badge-row"><span class="badge p2">P2</span><span class="badge bin">npx · node</span></div>
+      <p>Current time retrieval and timezone conversion. Lightweight, zero-config — no env vars required.</p>
+      <p><code class="text-indigo-400">npx -y @modelcontextprotocol/server-time</code></p>
+    </div>
+
+    <div class="mcp-card">
+      <h3>google-drive</h3>
+      <div class="badge-row"><span class="badge p2">P2</span><span class="badge env">GDRIVE_CLIENT_ID · GDRIVE_CLIENT_SECRET · GDRIVE_REDIRECT_URI</span><span class="badge bin">npx · node</span></div>
+      <p>Search and access Google Drive files, Docs, and Sheets. Read and organize cloud-stored documents.</p>
+      <p><code class="text-indigo-400">npx -y @modelcontextprotocol/server-gdrive</code></p>
+    </div>
+
+    <div class="mcp-card">
+      <h3>vercel</h3>
+      <div class="badge-row"><span class="badge p2">P2</span><span class="badge env">VERCEL_TOKEN</span><span class="badge bin">npx · node</span></div>
+      <p>Deployment status, build logs, env var management. "Did the last deploy pass?" answered in one tool call.</p>
+      <p><code class="text-indigo-400">npx -y @vercel/mcp-adapter</code></p>
+    </div>
+
+    <div class="mcp-card">
+      <h3>perplexity</h3>
+      <div class="badge-row"><span class="badge p2">P2</span><span class="badge env">PERPLEXITY_API_KEY</span><span class="badge bin">npx · node</span></div>
+      <p>Citation-backed deep research with multi-source synthesis. Best for technical articles and competitive analysis.</p>
+      <p><code class="text-indigo-400">npx -y perplexity-mcp</code></p>
+    </div>
+
+    <div class="mcp-card">
+      <h3>kubernetes</h3>
+      <div class="badge-row"><span class="badge p2">P2</span><span class="badge env">KUBECONFIG</span><span class="badge bin">uvx · kubectl</span></div>
+      <p>Pod inspection, deployment management, log retrieval, and resource status. Debug k8s workloads without leaving the agent.</p>
+      <p><code class="text-indigo-400">uvx mcp-server-kubernetes</code></p>
+    </div>
   </section>
 
   <section id="matrix">
     <h2 data-i18n="s3.title">§3 Compatibility Matrix</h2>
-    <p data-i18n-html="s3.intro">All 10 MCPs work on all 4 clients natively (MCP is a standard protocol — every modern CLI speaks it). What differs is <em>how the config gets written</em>:</p>
+    <p data-i18n-html="s3.intro">All 30 MCPs work on all 4 clients natively (MCP is a standard protocol — every modern CLI speaks it). What differs is <em>how the config gets written</em>:</p>
     <table>
       <thead><tr><th data-i18n="s3.h-client">Client</th><th data-i18n="s3.h-config">Config file</th><th data-i18n="s3.h-anchor">Anchor</th></tr></thead>
       <tbody>
@@ -273,7 +414,7 @@
     <table>
       <thead><tr><th data-i18n="s4.h-cmd">Command</th><th data-i18n="s4.h-does">Does</th></tr></thead>
       <tbody>
-        <tr><td><code>agent-mcp list</code></td><td data-i18n="s4.list-does">Tabular view of all 10 MCPs × 4 client install states.</td></tr>
+        <tr><td><code>agent-mcp list</code></td><td data-i18n="s4.list-does">Tabular view of all 30 MCPs × 4 client install states.</td></tr>
         <tr><td><code>agent-mcp install &lt;name&gt; --client all|opencode|codex|cursor|kimi</code></td><td data-i18n="s4.install-does">Backup, write config, anchor.</td></tr>
         <tr><td><code>agent-mcp uninstall &lt;name&gt; --client all|...</code></td><td data-i18n="s4.uninstall-does">Remove by anchor. Refuse non-managed entries.</td></tr>
         <tr><td><code>agent-mcp doctor</code></td><td data-i18n="s4.doctor-does">Schema validation, binary check, env satisfaction, anchor consistency.</td></tr>

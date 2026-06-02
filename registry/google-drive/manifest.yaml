@@ -1,0 +1,37 @@
+kind: mcp
+name: google-drive
+version: 0.1.0
+description: Google Drive MCP server — file access, search, and management for Google Drive documents, spreadsheets, and folders. Use whenever the agent needs to read, search, or organize files stored in Google Drive or access Google Docs and Sheets content.
+domain: general
+priority: P2
+
+compatibility:
+  opencode: native
+  codex: native
+  cursor: native
+  kimi: native
+
+source:
+  type: npm
+  package: "@modelcontextprotocol/server-gdrive"
+
+mcp_command:
+  - npx
+  - "-y"
+  - "@modelcontextprotocol/server-gdrive"
+
+requires:
+  binaries: [npx, node]
+  env: [GDRIVE_CLIENT_ID, GDRIVE_CLIENT_SECRET, GDRIVE_REDIRECT_URI]
+
+triggers:
+  - google drive
+  - gdrive
+  - google docs
+  - google sheets
+  - drive files
+  - cloud documents
+
+links:
+  upstream: https://github.com/modelcontextprotocol/servers-archived/tree/main/src/gdrive
+  docs: https://developers.google.com/drive

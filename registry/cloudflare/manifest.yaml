@@ -1,0 +1,39 @@
+kind: mcp
+name: cloudflare
+version: 0.1.0
+description: Cloudflare MCP server — manage Workers, KV, R2, D1, DNS, and CDN settings through the Cloudflare API. Use whenever the agent needs to deploy edge functions, manage storage, configure DNS records, or inspect Cloudflare infrastructure.
+domain: ops
+priority: P1
+
+compatibility:
+  opencode: native
+  codex: native
+  cursor: native
+  kimi: native
+
+source:
+  type: npm
+  package: "@cloudflare/mcp-server-cloudflare"
+
+mcp_command:
+  - npx
+  - "-y"
+  - "@cloudflare/mcp-server-cloudflare"
+
+requires:
+  binaries: [npx, node]
+  env: [CLOUDFLARE_API_TOKEN]
+
+triggers:
+  - cloudflare
+  - workers
+  - KV
+  - R2
+  - D1
+  - DNS
+  - edge functions
+  - CDN
+
+links:
+  upstream: https://github.com/cloudflare/mcp-server-cloudflare
+  docs: https://developers.cloudflare.com/mcp
