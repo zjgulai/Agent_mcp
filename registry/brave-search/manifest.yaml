@@ -18,7 +18,7 @@ source:
 mcp_command:
   - npx
   - "-y"
-  - "@modelcontextprotocol/server-brave-search"
+  - "@modelcontextprotocol/server-brave-search@0.6.2"
 
 requires:
   binaries: [npx, node]

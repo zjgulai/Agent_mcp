@@ -18,7 +18,7 @@ source:
 mcp_command:
   - npx
   - "-y"
-  - "@modelcontextprotocol/server-memory"
+  - "@modelcontextprotocol/server-memory@2026.1.26"
 
 requires:
   binaries: [npx, node]

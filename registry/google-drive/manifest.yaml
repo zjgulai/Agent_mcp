@@ -18,7 +18,7 @@ source:
 mcp_command:
   - npx
   - "-y"
-  - "@modelcontextprotocol/server-gdrive"
+  - "@modelcontextprotocol/server-gdrive@2025.1.14"
 
 requires:
   binaries: [npx, node]

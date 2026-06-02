@@ -18,7 +18,7 @@ source:
 mcp_command:
   - npx
   - "-y"
-  - "perplexity-mcp"
+  - "perplexity-mcp@0.2.3"
 
 requires:
   binaries: [npx, node]

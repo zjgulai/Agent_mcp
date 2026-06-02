@@ -13,12 +13,12 @@ compatibility:
 
 source:
   type: npm
-  package: "@stripe/mcp-server"
+  package: "@stripe/mcp"
 
 mcp_command:
   - npx
   - "-y"
-  - "@stripe/mcp-server"
+  - "@stripe/mcp@0.3.3"
 
 requires:
   binaries: [npx, node]

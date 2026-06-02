@@ -13,11 +13,11 @@ compatibility:
 
 source:
   type: pypi
-  package: awslabs.amazon-bedrock-mcp-server
+  package: awslabs.core-mcp-server
 
 mcp_command:
   - uvx
-  - "awslabs.amazon-bedrock-mcp-server@latest"
+  - "awslabs.core-mcp-server@1.0.27"
 
 requires:
   binaries: [uvx]

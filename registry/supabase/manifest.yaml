@@ -18,7 +18,7 @@ source:
 mcp_command:
   - npx
   - "-y"
-  - "@supabase/mcp-server-supabase"
+  - "@supabase/mcp-server-supabase@0.8.1"
 
 requires:
   binaries: [npx, node]

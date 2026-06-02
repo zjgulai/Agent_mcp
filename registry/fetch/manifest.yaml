@@ -12,16 +12,15 @@ compatibility:
   kimi: native
 
 source:
-  type: npm
-  package: "@modelcontextprotocol/server-fetch"
+  type: pypi
+  package: mcp-server-fetch
 
 mcp_command:
-  - npx
-  - "-y"
-  - "@modelcontextprotocol/server-fetch"
+  - uvx
+  - mcp-server-fetch
 
 requires:
-  binaries: [npx, node]
+  binaries: [uvx]
 
 triggers:
   - fetch

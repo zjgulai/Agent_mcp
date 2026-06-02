@@ -18,7 +18,7 @@ source:
 mcp_command:
   - npx
   - "-y"
-  - "@upstash/context7-mcp@latest"
+  - "@upstash/context7-mcp@0.9.0"
 
 requires:
   binaries: [npx, node]
