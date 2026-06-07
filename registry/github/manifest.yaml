@@ -2,7 +2,7 @@ kind: mcp
 name: github
 version: 0.1.0
 description: GitHub MCP server providing repo, issue, PR, code search, CI workflow access. Use whenever working with github.com — reviewing PRs, hunting issues, inspecting CI failures, querying remote repo content.
-domain: ops
+domain: tooling
 priority: P0
 
 compatibility:

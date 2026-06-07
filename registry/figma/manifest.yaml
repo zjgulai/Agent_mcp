@@ -2,7 +2,7 @@ kind: mcp
 name: figma
 version: 0.1.0
 description: Figma MCP exposing design files structure, tokens, components, text content, dimensions. Use whenever the agent must implement frontend from a Figma source-of-truth instead of guessing from screenshots. Best paired with frontend-design skill and playwright MCP.
-domain: frontend
+domain: tooling
 priority: P1
 
 compatibility:

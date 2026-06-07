@@ -2,7 +2,7 @@ kind: mcp
 name: memory
 version: 0.1.0
 description: Memory MCP server — knowledge-graph-based persistent memory system that lets the agent store, retrieve, and reason over facts across sessions. Use whenever the agent needs to remember context between conversations, track entities, or build a local knowledge base.
-domain: general
+domain: tooling
 priority: P0
 
 compatibility:

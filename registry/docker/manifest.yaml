@@ -2,7 +2,7 @@ kind: mcp
 name: docker
 version: 0.1.0
 description: Docker MCP server — container and compose stack management including listing containers, inspecting images, starting/stopping services, and reading logs. Use whenever the agent needs to manage local Docker workloads, debug containers, or orchestrate compose services.
-domain: ops
+domain: tooling
 priority: P1
 
 compatibility:

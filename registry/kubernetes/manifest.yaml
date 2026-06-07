@@ -2,7 +2,7 @@ kind: mcp
 name: kubernetes
 version: 0.1.0
 description: Kubernetes MCP server — cluster operations including pod inspection, deployment management, log retrieval, and resource status via kubectl-compatible APIs. Use whenever the agent needs to inspect k8s workloads, debug failing pods, scale deployments, or query cluster state.
-domain: ops
+domain: tooling
 priority: P2
 
 compatibility:

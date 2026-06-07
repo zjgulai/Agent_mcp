@@ -2,7 +2,7 @@ kind: mcp
 name: playwright
 version: 0.1.0
 description: Playwright MCP letting the agent drive a real browser — navigate, click, fill forms, screenshot, read DOM. Use whenever frontend work needs end-to-end visual or interaction verification beyond reading source code.
-domain: frontend
+domain: tooling
 priority: P0
 
 compatibility:

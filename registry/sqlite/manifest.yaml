@@ -2,7 +2,7 @@ kind: mcp
 name: sqlite
 version: 0.1.0
 description: SQLite MCP server — database interaction and business intelligence for local SQLite files including schema inspection, query execution, and data analysis. Use whenever the agent needs to query a local SQLite database, inspect schema, or run ad-hoc SQL against embedded data.
-domain: data
+domain: tooling
 priority: P1
 
 compatibility:

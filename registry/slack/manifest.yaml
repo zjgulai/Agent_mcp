@@ -2,7 +2,7 @@ kind: mcp
 name: slack
 version: 0.1.0
 description: Slack MCP server — channel management, message posting, thread reading, and user lookup via the Slack API. Use whenever the agent needs to send notifications, search conversations, post updates to channels, or retrieve team communication history.
-domain: ops
+domain: tooling
 priority: P1
 
 compatibility:

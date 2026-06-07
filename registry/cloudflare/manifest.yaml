@@ -2,7 +2,7 @@ kind: mcp
 name: cloudflare
 version: 0.1.0
 description: Cloudflare MCP server — manage Workers, KV, R2, D1, DNS, and CDN settings through the Cloudflare API. Use whenever the agent needs to deploy edge functions, manage storage, configure DNS records, or inspect Cloudflare infrastructure.
-domain: ops
+domain: tooling
 priority: P1
 
 compatibility:

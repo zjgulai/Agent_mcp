@@ -2,7 +2,7 @@ kind: mcp
 name: stripe
 version: 0.1.0
 description: Stripe MCP server — customer lookup, payment intents, subscriptions, invoices, and dispute management via the Stripe API. Use whenever the agent needs to check billing status, search customers, create payment links, or investigate failed charges.
-domain: general
+domain: tooling
 priority: P1
 
 compatibility:

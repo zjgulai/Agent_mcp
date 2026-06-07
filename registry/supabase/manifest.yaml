@@ -2,7 +2,7 @@ kind: mcp
 name: supabase
 version: 0.1.0
 description: Supabase MCP server — full-stack backend access including Postgres queries, auth user management, storage operations, and edge function deployment. Use whenever working on a Supabase project and the agent needs to query data, manage users, or inspect the database schema.
-domain: data
+domain: tooling
 priority: P1
 
 compatibility:

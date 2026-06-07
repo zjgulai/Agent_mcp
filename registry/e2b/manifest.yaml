@@ -2,7 +2,7 @@ kind: mcp
 name: e2b
 version: 0.1.0
 description: E2B MCP server — secure cloud sandboxes for running arbitrary code in isolated containers. Use whenever the agent needs to safely execute untrusted code, run scripts in a clean environment, test code snippets, or perform operations that should not affect the local machine.
-domain: code-quality
+domain: tooling
 priority: P1
 
 compatibility:

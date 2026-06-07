@@ -2,7 +2,7 @@ kind: mcp
 name: notion
 version: 0.1.0
 description: Notion MCP server — AI-driven interaction with Notion databases, pages, and blocks via the Notion API. Use whenever the agent needs to read or write Notion content, query databases, create pages, or update documentation stored in Notion.
-domain: general
+domain: tooling
 priority: P2
 
 compatibility:

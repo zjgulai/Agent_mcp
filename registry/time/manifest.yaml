@@ -2,7 +2,7 @@ kind: mcp
 name: time
 version: 0.1.0
 description: Time MCP server — current time retrieval and timezone conversion capabilities. Use whenever the agent needs to know the current time in a specific timezone, convert between timezones, or calculate time differences for scheduling or logging.
-domain: general
+domain: tooling
 priority: P2
 
 compatibility:

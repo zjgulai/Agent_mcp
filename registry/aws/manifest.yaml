@@ -2,7 +2,7 @@ kind: mcp
 name: aws
 version: 0.1.0
 description: AWS MCP server — S3, EC2, Lambda, CloudWatch, and IAM management via AWS APIs. Use whenever the agent needs to check infrastructure status, manage cloud resources, read CloudWatch logs, deploy Lambda functions, or inspect S3 buckets.
-domain: ops
+domain: tooling
 priority: P1
 
 compatibility:

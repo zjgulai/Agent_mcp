@@ -2,7 +2,7 @@ kind: mcp
 name: puppeteer
 version: 0.1.0
 description: Puppeteer MCP server — headless browser automation and web scraping using Chrome. Use when Playwright is unavailable or when legacy Chrome-specific automation is needed for screenshots, PDF generation, or JavaScript-heavy page scraping.
-domain: frontend
+domain: tooling
 priority: P2
 
 compatibility:

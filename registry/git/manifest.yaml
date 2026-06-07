@@ -2,7 +2,7 @@ kind: mcp
 name: git
 version: 0.1.0
 description: Git MCP exposing local repo history, blame, diff, commit metadata. Use for understanding commit lineage, recent changes, blame analysis when you need local-history context that GitHub MCP cannot provide.
-domain: ops
+domain: tooling
 priority: P0
 
 compatibility:

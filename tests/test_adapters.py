@@ -23,7 +23,7 @@ VALID_MCP_GITHUB = {
     "name": "github",
     "version": "0.1.0",
     "description": "GitHub MCP server providing repo, issue, PR, code search, CI workflow access for ops scenarios.",
-    "domain": "ops",
+    "domain": "tooling",
     "priority": "P0",
     "compatibility": {"opencode": "native", "codex": "native", "cursor": "native", "kimi": "native"},
     "source": {"type": "npm", "package": "@modelcontextprotocol/server-github"},

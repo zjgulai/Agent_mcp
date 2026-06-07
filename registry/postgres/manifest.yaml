@@ -2,7 +2,7 @@ kind: mcp
 name: postgres
 version: 0.1.0
 description: Postgres MCP server providing read-mostly schema introspection, query execution, migration sanity-check. Use whenever the agent needs to understand a real database schema, generate SQL grounded in actual tables, or debug data issues. Strongly recommended to point at staging/dev DB with read-only role.
-domain: data
+domain: tooling
 priority: P1
 
 compatibility:

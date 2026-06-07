@@ -2,7 +2,7 @@ kind: mcp
 name: gitlab
 version: 0.1.0
 description: GitLab MCP server — project management, merge request operations, issue tracking, CI/CD pipeline inspection, and repository access via the GitLab API. Use whenever working with GitLab-hosted repositories, MRs, or pipelines instead of GitHub.
-domain: ops
+domain: tooling
 priority: P2
 
 compatibility:

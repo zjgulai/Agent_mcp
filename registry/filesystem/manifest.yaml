@@ -2,7 +2,7 @@ kind: mcp
 name: filesystem
 version: 0.1.0
 description: Filesystem MCP server giving controlled file access scoped to an allowlist of paths. Use for cross-tool file operations, batch file analysis, or any agent that needs file IO with explicit boundaries.
-domain: data
+domain: tooling
 priority: P0
 
 compatibility:

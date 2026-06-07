@@ -2,7 +2,7 @@ kind: mcp
 name: fetch
 version: 0.1.0
 description: Fetch MCP server — fetches any URL and converts HTML to clean Markdown for LLM consumption. Use whenever the agent needs to read a web page, retrieve API docs, or extract content from a URL without spawning a full browser.
-domain: research
+domain: tooling
 priority: P0
 
 compatibility:

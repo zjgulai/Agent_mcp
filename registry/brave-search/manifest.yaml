@@ -2,7 +2,7 @@ kind: mcp
 name: brave-search
 version: 0.1.0
 description: Brave Search MCP server — web and local search using Brave's independent search index with no ad-rank bias. Use whenever the agent needs to search the web, find current information, or do local business searches without Google dependency.
-domain: research
+domain: tooling
 priority: P0
 
 compatibility:

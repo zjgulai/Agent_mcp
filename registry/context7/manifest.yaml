@@ -2,7 +2,7 @@ kind: mcp
 name: context7
 version: 0.1.0
 description: Context7 MCP fetching up-to-date docs for fast-moving libraries (React, Next.js, Supabase, Prisma, FastAPI, Stripe, cloud SDKs). Use whenever you suspect the model's library knowledge is stale or you need version-pinned API references.
-domain: research
+domain: tooling
 priority: P0
 
 compatibility:

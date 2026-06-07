@@ -2,7 +2,7 @@ kind: mcp
 name: google-drive
 version: 0.1.0
 description: Google Drive MCP server — file access, search, and management for Google Drive documents, spreadsheets, and folders. Use whenever the agent needs to read, search, or organize files stored in Google Drive or access Google Docs and Sheets content.
-domain: general
+domain: tooling
 priority: P2
 
 compatibility:

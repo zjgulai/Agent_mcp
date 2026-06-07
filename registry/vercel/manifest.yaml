@@ -2,7 +2,7 @@ kind: mcp
 name: vercel
 version: 0.1.0
 description: Vercel MCP server — deployment management, build status inspection, environment variable management, and log access via the Vercel API. Use whenever the agent needs to trigger deployments, check build failures, manage env vars, or inspect Vercel project status.
-domain: ops
+domain: tooling
 priority: P2
 
 compatibility:
