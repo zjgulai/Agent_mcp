@@ -10,7 +10,7 @@
 
 | | |
 |---|---|
-| MCPs registered | **30** (9 P0 + 13 P1 + 8 P2) |
+| MCPs registered | **31** (9 P0 + 13 P1 + 9 P2) |
 | Tests passing | **39** (28 schema + 11 adapter) |
 | Clients supported | opencode, codex, cursor, kimi |
 | Companion repos | [Agent_skills](https://github.com/zjgulai/Agent_skills) · [Agent_hook](https://github.com/zjgulai/Agent_hook) |
@@ -30,7 +30,7 @@ export POSTGRES_CONNECTION_STRING=postgres://...
 ./bin/agent-mcp list
 ```
 
-## The 30 MCPs
+## The 31 MCPs
 
 **P0 (must-install)**:
 
@@ -75,6 +75,7 @@ export POSTGRES_CONNECTION_STRING=postgres://...
 | google-drive | Drive files, Docs, Sheets access | `GDRIVE_CLIENT_ID`, `GDRIVE_CLIENT_SECRET`, `GDRIVE_REDIRECT_URI` |
 | vercel | Deployments, builds, env vars | `VERCEL_TOKEN` |
 | perplexity | Citation-backed deep research | `PERPLEXITY_API_KEY` |
+| xquik | X/Twitter data workflows through remote MCP | `XQUIK_API_KEY` |
 | kubernetes | Pod inspection, cluster ops | `KUBECONFIG` |
 
 ## Architecture

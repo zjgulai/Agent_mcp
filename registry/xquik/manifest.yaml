@@ -1,0 +1,41 @@
+kind: mcp
+name: xquik
+version: 0.1.0
+description: Xquik remote MCP server for X/Twitter data workflows, API exploration, public data collection, media metadata, and monitoring setup. Use when an agent needs source-backed X/Twitter requests through the documented Xquik MCP endpoint.
+domain: tooling
+priority: P2
+
+compatibility:
+  opencode: native
+  codex: native
+  cursor: native
+  kimi: native
+
+source:
+  type: external
+  path: https://xquik.com/mcp
+
+mcp_command:
+  - npx
+  - "-y"
+  - "mcp-remote@0.1.38"
+  - "https://xquik.com/mcp"
+  - "--header"
+  - "Authorization: Bearer ${XQUIK_API_KEY}"
+
+requires:
+  binaries: [npx, node]
+  env: [XQUIK_API_KEY]
+
+triggers:
+  - xquik
+  - x twitter data
+  - tweet search
+  - x api
+  - social data
+  - media metadata
+  - keyword monitor
+
+links:
+  upstream: https://github.com/Xquik-dev/x-twitter-scraper
+  docs: https://docs.xquik.com/mcp/overview

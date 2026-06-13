@@ -6,6 +6,10 @@ All notable changes to **Agent_mcp** are documented here. Format follows [Keep a
 
 Pre-1.0. Coordinated 1.0.0 will land alongside [Agent_skills](https://github.com/zjgulai/Agent_skills) and [Agent_hook](https://github.com/zjgulai/Agent_hook) once the `manifest.py` schema and CLI surface are pinned.
 
+### Added
+
+- Xquik remote MCP registry entry with `mcp-remote@0.1.38` and env-only `XQUIK_API_KEY` authentication.
+
 ## [0.1.1] — 2026-05-16
 
 ### Documentation
