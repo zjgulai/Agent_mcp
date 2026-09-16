@@ -1,0 +1,36 @@
+kind: mcp
+name: anysearch
+version: 0.1.0
+description: AnySearch MCP (remote, bridged via mcp-remote) — unified real-time search across the general web plus vertical domains (stock quotes, CVE, DOI, IATA, patents). Works anonymously; set ANYSEARCH_API_KEY in your private config for higher quota. Use whenever the agent needs fresh data or batch multi-query search in one call.
+domain: tooling
+priority: P1
+
+compatibility:
+  opencode: native
+  codex: native
+  cursor: native
+  kimi: native
+
+source:
+  type: npm
+  package: "mcp-remote"
+
+mcp_command:
+  - npx
+  - "-y"
+  - "mcp-remote@0.14.2"
+  - "https://api.anysearch.com/mcp"
+
+requires:
+  binaries: [npx, node]
+
+triggers:
+  - real-time search
+  - vertical search
+  - stock quote
+  - CVE lookup
+  - DOI lookup
+  - batch search
+
+links:
+  upstream: https://github.com/anysearch-ai/anysearch-mcp-server

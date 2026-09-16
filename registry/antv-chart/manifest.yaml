@@ -1,0 +1,35 @@
+kind: mcp
+name: antv-chart
+version: 0.1.0
+description: AntV chart MCP (official, antvis org) — generates 25+ chart types (line, bar, pie, area, radar, treemap, sankey...) as editable HTML files from raw data. Use whenever the agent needs to turn query results, CSV data, or computed series into production-quality visualizations instead of ASCII tables.
+domain: tooling
+priority: P1
+
+compatibility:
+  opencode: native
+  codex: native
+  cursor: native
+  kimi: native
+
+source:
+  type: npm
+  package: "@antv/mcp-server-chart"
+
+mcp_command:
+  - npx
+  - "-y"
+  - "@antv/mcp-server-chart@0.9.10"
+
+requires:
+  binaries: [npx, node]
+
+triggers:
+  - chart
+  - visualization
+  - plot data
+  - graph from csv
+  - data viz
+  - generate chart
+
+links:
+  upstream: https://github.com/antvis/mcp-server-chart

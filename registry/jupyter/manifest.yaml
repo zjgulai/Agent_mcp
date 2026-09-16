@@ -1,0 +1,35 @@
+kind: mcp
+name: jupyter
+version: 0.1.0
+description: Jupyter MCP server (Datalayer, official) — real-time notebook control — execute cells, read outputs, fix failing cells with feedback, manage kernels on a running JupyterLab/Jupyter server. Use whenever the agent should iterate inside a notebook instead of rewriting scripts. Requires a running Jupyter server (JUPYTER_URL + JUPYTER_TOKEN).
+domain: tooling
+priority: P2
+
+compatibility:
+  opencode: native
+  codex: native
+  cursor: native
+  kimi: native
+
+source:
+  type: pypi
+  package: jupyter-mcp-server
+
+mcp_command:
+  - uvx
+  - "jupyter-mcp-server@2.1.16"
+
+requires:
+  binaries: [uvx]
+  env: [JUPYTER_URL, JUPYTER_TOKEN]
+
+triggers:
+  - jupyter
+  - notebook
+  - execute cells
+  - kernel
+  - ipynb
+
+links:
+  upstream: https://github.com/datalayer/jupyter-mcp-server
+  docs: https://jupyter-mcp-server.datalayer.tech

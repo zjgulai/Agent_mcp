@@ -1,0 +1,35 @@
+kind: mcp
+name: ripwire
+version: 0.1.0
+description: ripwire (Red Hat) — instant offline code-context index for coding agents — a ranked repository map in ~0.25s, caller/callee answers, and task-scoped views of what to touch. Use whenever the agent needs repo-scale context without reading every file. Requires the ripwire binary installed first (curl installer in upstream INSTALL.md); MCP mode is the warm-index interface.
+domain: tooling
+priority: P1
+
+compatibility:
+  opencode: native
+  codex: native
+  cursor: native
+  kimi: native
+
+source:
+  type: git
+  url: https://github.com/redhat-et/ripwire
+  ref: v0.6.1
+
+mcp_command:
+  - ripwire
+  - "--mcp"
+
+requires:
+  binaries: [ripwire]
+
+triggers:
+  - repo map
+  - code context
+  - callers of function
+  - what should I touch
+  - indexed repo search
+
+links:
+  upstream: https://github.com/redhat-et/ripwire
+  docs: https://github.com/redhat-et/ripwire/blob/main/INSTALL.md

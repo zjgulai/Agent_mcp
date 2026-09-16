@@ -1,0 +1,33 @@
+kind: mcp
+name: arxiv
+version: 0.1.0
+description: arXiv MCP — literature work for research tasks — search papers, download LaTeX sources, read per-section content, and manage a local paper library with BibTeX. Use whenever the agent needs to ground claims in actual papers instead of model memory.
+domain: tooling
+priority: P2
+
+compatibility:
+  opencode: native
+  codex: native
+  cursor: native
+  kimi: native
+
+source:
+  type: pypi
+  package: arxiv-mcp-server
+
+mcp_command:
+  - uvx
+  - "arxiv-mcp-server@0.7.2"
+
+requires:
+  binaries: [uvx]
+
+triggers:
+  - arxiv
+  - paper search
+  - literature review
+  - cite paper
+  - bibtex
+
+links:
+  upstream: https://github.com/blazickjp/arxiv-mcp-server

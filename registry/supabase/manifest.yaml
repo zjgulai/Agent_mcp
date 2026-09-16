@@ -22,7 +22,7 @@ mcp_command:
 
 requires:
   binaries: [npx, node]
-  env: [SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY]
+  env: [SUPABASE_ACCESS_TOKEN]
 
 triggers:
   - supabase

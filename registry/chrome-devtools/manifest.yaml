@@ -1,0 +1,36 @@
+kind: mcp
+name: chrome-devtools
+version: 0.1.0
+description: Chrome DevTools MCP (official, ChromeDevTools org) — network request inspection, performance traces, console output, DOM snapshot debugging against a real Chrome instance. Use whenever the agent needs to diagnose why a page is slow, what a page is requesting, or what console errors a real browser throws. Complements playwright MCP (which drives interaction; this one gives DevTools-grade diagnostics).
+domain: tooling
+priority: P0
+
+compatibility:
+  opencode: native
+  codex: native
+  cursor: native
+  kimi: native
+
+source:
+  type: npm
+  package: "chrome-devtools-mcp"
+
+mcp_command:
+  - npx
+  - "-y"
+  - "chrome-devtools-mcp@1.9.0"
+
+requires:
+  binaries: [npx, node]
+
+triggers:
+  - chrome devtools
+  - network requests
+  - performance trace
+  - console errors
+  - page load waterfall
+  - cpu profile
+
+links:
+  upstream: https://github.com/ChromeDevTools/chrome-devtools-mcp
+  docs: https://chromedevtools.github.io/chrome-devtools-mcp/

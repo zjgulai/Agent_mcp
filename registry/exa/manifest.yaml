@@ -1,0 +1,36 @@
+kind: mcp
+name: exa
+version: 0.1.0
+description: Exa MCP — neural/semantic web search and crawling for research-grade retrieval — find pages by meaning, not keywords. Use whenever keyword search (brave-search) misses because you need pages *about* a concept, competitor pages, technical blog posts, or similar-company discovery.
+domain: tooling
+priority: P1
+
+compatibility:
+  opencode: native
+  codex: native
+  cursor: native
+  kimi: native
+
+source:
+  type: npm
+  package: "exa-mcp-server"
+
+mcp_command:
+  - npx
+  - "-y"
+  - "exa-mcp-server@3.4.1"
+
+requires:
+  binaries: [npx, node]
+  env: [EXA_API_KEY]
+
+triggers:
+  - semantic search
+  - neural search
+  - find pages about
+  - research sources
+  - similar companies
+
+links:
+  upstream: https://github.com/exa-labs/exa-mcp-server
+  docs: https://docs.exa.ai

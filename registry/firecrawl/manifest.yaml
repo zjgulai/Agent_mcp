@@ -1,0 +1,36 @@
+kind: mcp
+name: firecrawl
+version: 0.1.0
+description: Firecrawl MCP — deep website crawling, JS-heavy page scraping, and structured data extraction across whole sites. Use whenever fetch MCP (single static page) is not enough — batch crawls, sites that render via JavaScript, or when you need markdown/extraction with metadata at scale.
+domain: tooling
+priority: P1
+
+compatibility:
+  opencode: native
+  codex: native
+  cursor: native
+  kimi: native
+
+source:
+  type: npm
+  package: "firecrawl-mcp"
+
+mcp_command:
+  - npx
+  - "-y"
+  - "firecrawl-mcp@3.24.0"
+
+requires:
+  binaries: [npx, node]
+  env: [FIRECRAWL_API_KEY]
+
+triggers:
+  - crawl
+  - scrape javascript site
+  - extract structured data
+  - batch scrape
+  - site to markdown
+
+links:
+  upstream: https://github.com/firecrawl/firecrawl-mcp-server
+  docs: https://docs.firecrawl.dev

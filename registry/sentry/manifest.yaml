@@ -22,7 +22,7 @@ mcp_command:
 
 requires:
   binaries: [npx, node]
-  env: [SENTRY_AUTH_TOKEN]
+  env: [SENTRY_ACCESS_TOKEN]
 
 triggers:
   - sentry

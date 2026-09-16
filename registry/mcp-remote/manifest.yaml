@@ -1,0 +1,36 @@
+kind: mcp
+name: mcp-remote
+version: 0.1.0
+description: mcp-remote bridge — bring ANY remote streamable-HTTP/OAuth MCP server into stdio-only clients. Set MCP_REMOTE_URL to the remote MCP endpoint and this entry runs it locally, handling OAuth login (browser popup on first use) and token persistence. Use whenever a valuable MCP only ships as a remote URL and your client speaks stdio only.
+domain: tooling
+priority: P0
+
+compatibility:
+  opencode: native
+  codex: native
+  cursor: native
+  kimi: native
+
+source:
+  type: npm
+  package: "mcp-remote"
+
+mcp_command:
+  - npx
+  - "-y"
+  - "mcp-remote@0.14.2"
+  - "${MCP_REMOTE_URL}"
+
+requires:
+  binaries: [npx, node]
+  env: [MCP_REMOTE_URL]
+
+triggers:
+  - remote mcp
+  - http mcp
+  - streamable http
+  - oauth mcp
+  - bridge remote server
+
+links:
+  upstream: https://github.com/geelen/mcp-remote
