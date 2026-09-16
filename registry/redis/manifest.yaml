@@ -17,7 +17,7 @@ source:
 
 mcp_command:
   - uvx
-  - mcp-server-redis
+  - mcp-server-redis@0.1.1
 
 requires:
   binaries: [uvx]

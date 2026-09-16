@@ -12,15 +12,16 @@ compatibility:
   kimi: native
 
 source:
-  type: pypi
-  package: mcp-server-gitlab
+  type: npm
+  package: "@zereight/mcp-gitlab"
 
 mcp_command:
-  - uvx
-  - mcp-server-gitlab
+  - npx
+  - "-y"
+  - "@zereight/mcp-gitlab@2.1.62"
 
 requires:
-  binaries: [uvx]
+  binaries: [npx, node]
   env: [GITLAB_PERSONAL_ACCESS_TOKEN, GITLAB_URL]
 
 triggers:
@@ -32,5 +33,5 @@ triggers:
   - gitlab issue
 
 links:
-  upstream: https://github.com/modelcontextprotocol/servers-archived/tree/main/src/gitlab
+  upstream: https://github.com/zereight/gitlab-mcp
   docs: https://docs.gitlab.com/api/rest/

@@ -1,7 +1,7 @@
 kind: mcp
 name: slack
 version: 0.1.0
-description: Slack MCP server — channel management, message posting, thread reading, and user lookup via the Slack API. Use whenever the agent needs to send notifications, search conversations, post updates to channels, or retrieve team communication history.
+description: Slack MCP server (official remote, bridged to stdio via mcp-remote) — channel management, message posting, thread reading, and user lookup. First launch opens a browser OAuth flow. Use whenever the agent needs to send notifications, search conversations, post updates to channels, or retrieve team communication history.
 domain: tooling
 priority: P1
 
@@ -13,16 +13,16 @@ compatibility:
 
 source:
   type: npm
-  package: "@zencoderai/slack-mcp-server"
+  package: "mcp-remote"
 
 mcp_command:
   - npx
   - "-y"
-  - "@zencoderai/slack-mcp-server"
+  - "mcp-remote@0.14.2"
+  - "https://mcp.slack.com/mcp"
 
 requires:
   binaries: [npx, node]
-  env: [SLACK_BOT_TOKEN, SLACK_TEAM_ID]
 
 triggers:
   - slack
@@ -33,5 +33,5 @@ triggers:
   - post to slack
 
 links:
-  upstream: https://github.com/zencoderai/slack-mcp-server
+  upstream: https://api.slack.com/mcp
   docs: https://api.slack.com/docs

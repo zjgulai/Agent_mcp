@@ -1,7 +1,7 @@
 kind: mcp
 name: figma
 version: 0.1.0
-description: Figma MCP exposing design files structure, tokens, components, text content, dimensions. Use whenever the agent must implement frontend from a Figma source-of-truth instead of guessing from screenshots. Best paired with frontend-design skill and playwright MCP.
+description: Figma MCP (figma-developer-mcp) exposing design files structure, tokens, components, text content, dimensions. Use whenever the agent must implement frontend from a Figma source-of-truth instead of guessing from screenshots. Best paired with frontend-design skill and playwright MCP.
 domain: tooling
 priority: P1
 
@@ -13,16 +13,17 @@ compatibility:
 
 source:
   type: npm
-  package: "@figma/mcp-server"
+  package: "figma-developer-mcp"
 
 mcp_command:
   - npx
   - "-y"
-  - "@figma/mcp-server"
+  - "figma-developer-mcp@0.13.2"
+  - "--stdio"
 
 requires:
   binaries: [npx, node]
-  env: [FIGMA_API_TOKEN]
+  env: [FIGMA_API_KEY]
 
 triggers:
   - figma
@@ -31,4 +32,4 @@ triggers:
   - design handoff
 
 links:
-  upstream: https://www.figma.com/community/plugins/develop
+  upstream: https://github.com/GLips/Figma-Context-MCP

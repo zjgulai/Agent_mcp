@@ -1,7 +1,7 @@
 kind: mcp
 name: vercel
 version: 0.1.0
-description: Vercel MCP server — deployment management, build status inspection, environment variable management, and log access via the Vercel API. Use whenever the agent needs to trigger deployments, check build failures, manage env vars, or inspect Vercel project status.
+description: Vercel MCP server (official remote, bridged to stdio via mcp-remote) — deployment management, build status inspection, environment variable management, and log access. Use whenever the agent needs to trigger deployments, check build failures, manage env vars, or inspect Vercel project status. First launch opens a browser OAuth flow.
 domain: tooling
 priority: P2
 
@@ -13,16 +13,16 @@ compatibility:
 
 source:
   type: npm
-  package: "@vercel/mcp-adapter"
+  package: "mcp-remote"
 
 mcp_command:
   - npx
   - "-y"
-  - "@vercel/mcp-adapter@0.3.2"
+  - "mcp-remote@0.14.2"
+  - "https://mcp.vercel.com"
 
 requires:
   binaries: [npx, node]
-  env: [VERCEL_TOKEN]
 
 triggers:
   - vercel
@@ -33,5 +33,5 @@ triggers:
   - frontend deploy
 
 links:
-  upstream: https://github.com/vercel/mcp-adapter
+  upstream: https://vercel.com/docs/agent-resources/vercel-mcp
   docs: https://vercel.com/docs/mcp

@@ -12,15 +12,16 @@ compatibility:
   kimi: native
 
 source:
-  type: pypi
+  type: npm
   package: mcp-server-kubernetes
 
 mcp_command:
-  - uvx
-  - mcp-server-kubernetes
+  - npx
+  - "-y"
+  - "mcp-server-kubernetes@4.1.7"
 
 requires:
-  binaries: [uvx, kubectl]
+  binaries: [npx, node, kubectl]
   env: [KUBECONFIG]
 
 triggers:

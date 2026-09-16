@@ -1,7 +1,7 @@
 kind: mcp
 name: linear
 version: 0.1.0
-description: Linear MCP enabling the agent to read tickets, update statuses, query cycles, surface assigned work. Use whenever development work starts from a ticket (not a free-form prompt) and progress should be reflected back in the team's tracker.
+description: Linear MCP (official remote, bridged to stdio via mcp-remote) enabling the agent to read tickets, update statuses, query cycles, surface assigned work. First launch opens a browser OAuth flow. Use whenever development work starts from a ticket (not a free-form prompt) and progress should be reflected back in the team's tracker.
 domain: tooling
 priority: P1
 
@@ -13,16 +13,16 @@ compatibility:
 
 source:
   type: npm
-  package: "@linear/mcp-server"
+  package: "mcp-remote"
 
 mcp_command:
   - npx
   - "-y"
-  - "@linear/mcp-server"
+  - "mcp-remote@0.14.2"
+  - "https://mcp.linear.app/mcp"
 
 requires:
   binaries: [npx, node]
-  env: [LINEAR_API_KEY]
 
 triggers:
   - linear
@@ -32,4 +32,4 @@ triggers:
   - cycle
 
 links:
-  upstream: https://linear.app/developers
+  upstream: https://mcp.linear.app

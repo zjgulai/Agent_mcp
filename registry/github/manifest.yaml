@@ -18,7 +18,7 @@ source:
 mcp_command:
   - npx
   - "-y"
-  - "@modelcontextprotocol/server-github"
+  - "@modelcontextprotocol/server-github@2025.4.8"
 
 requires:
   binaries: [npx, node]

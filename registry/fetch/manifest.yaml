@@ -17,7 +17,7 @@ source:
 
 mcp_command:
   - uvx
-  - mcp-server-fetch
+  - mcp-server-fetch@2026.8.18
 
 requires:
   binaries: [uvx]

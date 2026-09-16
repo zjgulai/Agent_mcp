@@ -13,12 +13,12 @@ compatibility:
 
 source:
   type: npm
-  package: "@modelcontextprotocol/server-brave-search"
+  package: "@brave/brave-search-mcp-server"
 
 mcp_command:
   - npx
   - "-y"
-  - "@modelcontextprotocol/server-brave-search@0.6.2"
+  - "@brave/brave-search-mcp-server@2.1.3"
 
 requires:
   binaries: [npx, node]

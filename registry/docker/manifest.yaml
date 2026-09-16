@@ -17,7 +17,7 @@ source:
 
 mcp_command:
   - uvx
-  - mcp-server-docker
+  - mcp-server-docker@0.3.0
 
 requires:
   binaries: [uvx, docker]

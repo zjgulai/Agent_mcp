@@ -18,7 +18,7 @@ source:
 mcp_command:
   - npx
   - "-y"
-  - "@modelcontextprotocol/server-sequential-thinking"
+  - "@modelcontextprotocol/server-sequential-thinking@2026.8.31"
 
 requires:
   binaries: [npx, node]

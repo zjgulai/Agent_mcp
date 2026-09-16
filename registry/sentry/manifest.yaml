@@ -18,7 +18,7 @@ source:
 mcp_command:
   - npx
   - "-y"
-  - "@sentry/mcp-server"
+  - "@sentry/mcp-server@0.39.0"
 
 requires:
   binaries: [npx, node]

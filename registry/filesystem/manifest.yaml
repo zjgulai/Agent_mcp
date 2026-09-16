@@ -18,7 +18,7 @@ source:
 mcp_command:
   - npx
   - "-y"
-  - "@modelcontextprotocol/server-filesystem"
+  - "@modelcontextprotocol/server-filesystem@2026.8.31"
   - "${HOME}/project"
 
 requires:

@@ -18,7 +18,7 @@ source:
 mcp_command:
   - npx
   - "-y"
-  - "@playwright/mcp@3.1.0"
+  - "@playwright/mcp@0.0.81"
 
 requires:
   binaries: [npx, node]
