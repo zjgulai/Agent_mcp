@@ -60,10 +60,20 @@ def cmd_uninstall(args):
 
 
 def cmd_doctor(args):
+    from .pincheck import check_pin_online
+
     issues = 0
     print("== schema ==")
     for m in iter_registry(REPO_ROOT, expected_kind="mcp"):
         print(f"  ok {m.name} v{m.version}")
+    if getattr(args, "pins", False):
+        print("\n== registry pins (online) ==")
+        for m in iter_registry(REPO_ROOT, expected_kind="mcp"):
+            r = check_pin_online(m)
+            mark = "ok" if r["status"] == "ok" else ("skip" if r["status"] == "exempt" else r["status"])
+            if r["status"] == "BAD-PIN":
+                issues += 1
+            print(f"  {mark:8s} {r['name']:22s} -> {r['detail']}")
     print("\n== binaries ==")
     for m in iter_registry(REPO_ROOT, expected_kind="mcp"):
         for b in m.requires.get("binaries", []):
@@ -113,7 +123,9 @@ def main(argv: list[str] | None = None) -> int:
     p_uninstall.add_argument("--client", choices=list(ADAPTERS.keys()) + ["all"], default="all")
     p_uninstall.set_defaults(func=cmd_uninstall)
 
-    p_doctor = sub.add_parser("doctor", help="Health check: schema, binaries, env, client config consistency.")
+    p_doctor = sub.add_parser("doctor", help="Health check: schema, binaries, env, client config consistency. --pins adds online registry checks.")
+    p_doctor.add_argument("--pins", action="store_true",
+                          help="Also verify every pinned npm/pypi version exists in its registry (network required).")
     p_doctor.set_defaults(func=cmd_doctor)
 
     p_show = sub.add_parser("show", help="Print a manifest as JSON.")
