@@ -6,6 +6,41 @@ All notable changes to **Agent_mcp** are documented here. Format follows [Keep a
 
 Pre-1.0. Coordinated 1.0.0 will land alongside [Agent_skills](https://github.com/zjgulai/Agent_skills) and [Agent_hook](https://github.com/zjgulai/Agent_hook) once the `manifest.py` schema and CLI surface are pinned.
 
+### [2026-09-17] Registry update — 30 → 39 MCPs
+
+Audit window: 2026-07-17 → 2026-09-17 (npm/PyPI version truth + GitHub release
+activity + live `initialize` handshake on every shipped entry).
+
+**Fixed (7 broken entries — all verified broken before, working after):**
+
+- `playwright`: pinned `@playwright/mcp@3.1.0` never existed on npm → `0.0.81`
+- `aws`: was `awslabs.core-mcp-server` (base server, no cloud control) → `awslabs.aws-api-mcp-server@1.5.5`
+- `vercel` / `linear` / `slack`: nonexistent or squatter npm packages → official
+  remote MCP servers bridged to stdio via `mcp-remote@0.14.2`
+- `figma`: nonexistent `@figma/mcp-server` → `figma-developer-mcp@0.13.2` (de-facto standard)
+- `gitlab`: `mcp-server-gitlab` removed from PyPI → `@zereight/mcp-gitlab@2.1.62`
+
+**Aligned (12 pins):** brave-search → official `@brave/brave-search-mcp-server@2.1.3` ·
+context7 `4.1.1` · notion `2.5.1` · supabase `0.12.0` · sentry `0.39.0` ·
+filesystem/memory/sequential-thinking `2026.8.31` · fetch/git/time `2026.8.18` ·
+postgres `0.6.2` · docker `0.3.0` · sqlite `2025.4.25` · redis `0.1.1`.
+Env renamed by upstreams: `SENTRY_AUTH_TOKEN` → `SENTRY_ACCESS_TOKEN`,
+`SUPABASE_URL`+`SERVICE_ROLE_KEY` → `SUPABASE_ACCESS_TOKEN`.
+`kubernetes`: stale PyPI 0.1.6 (2025-03) → npm `mcp-server-kubernetes@4.1.7`.
+
+**Added (9, each passed a live MCP handshake on macOS/Node 26/uv 0.11):**
+
+- P0: `chrome-devtools` (official, 52k★), `mcp-remote` (bridge enabler)
+- P1: `firecrawl`, `antv-chart` (official AntV), `ripwire` (Red Hat), `exa`, `anysearch` (remote bridge)
+- P2: `arxiv`, `jupyter` (Datalayer)
+
+**Rejected after verification:** `docs-mcp-server` (hangs pre-argparse on Node v26),
+`cve-mcp-server` (no package-manager distribution). Recorded for later reconsideration.
+
+**Tooling:** `agent/lib/pincheck.py` + 6 offline tests (45 total) +
+`agent-mcp doctor --pins` online registry check — the playwright@3.1.0 class of
+bad pin can no longer land silently.
+
 ## [0.1.1] — 2026-05-16
 
 ### Documentation
